@@ -1,5 +1,5 @@
 import { Outlet, createFileRoute, Link } from "@tanstack/react-router";
-import { Book, Code, Box, Layers, Play } from "lucide-react";
+import { Book, Code, Layers, Play } from "lucide-react";
 
 export const Route = createFileRoute("/docs")({
   component: DocsLayout,
@@ -10,22 +10,22 @@ function DocsLayout() {
     {
       to: "/docs",
       label: "Introduction",
-      icon: <Book size={18} />,
+      icon: <Book size={14} />,
     },
     {
       to: "/docs/getting-started",
       label: "Getting Started",
-      icon: <Play size={18} />,
+      icon: <Play size={14} />,
     },
     {
       to: "/docs/core-concepts",
       label: "Core Concepts",
-      icon: <Layers size={18} />,
+      icon: <Layers size={14} />,
     },
     {
       to: "/docs/api-reference",
       label: "API Reference",
-      icon: <Code size={18} />,
+      icon: <Code size={14} />,
     },
   ];
 
@@ -46,7 +46,7 @@ function DocsLayout() {
                   className:
                     "bg-indigo-500/10 text-indigo-400 border-r-2 border-indigo-400",
                 }}
-                className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-400 hover:text-white hover:bg-white/5 rounded-r-lg transition-colors border-r-2 border-transparent"
+                className="flex items-center gap-3 px-4 py-2 text-xs text-zinc-400 hover:text-white hover:bg-white/5 rounded-r-lg transition-colors border-r-2 border-transparent"
               >
                 {link.icon}
                 {link.label}

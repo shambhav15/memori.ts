@@ -21,15 +21,15 @@ function ApiReference() {
         </span>
       </div>
 
-      <h1 className="text-2xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
+      <h1 className="text-xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
         Core API
       </h1>
-      <p className="text-sm text-zinc-400 mb-8 leading-relaxed font-mono">
+      <p className="text-xs text-zinc-400 mb-8 leading-relaxed font-mono">
         Complete reference for the Memori-JS client.
       </p>
 
       {/* Class Memori */}
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-indigo-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-indigo-500 pl-4">
         Class: Memori
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">
@@ -37,7 +37,7 @@ function ApiReference() {
       </p>
 
       <div className="bg-zinc-900/50 border border-white/5 rounded-lg p-6 mb-8">
-        <h3 className="font-mono text-sm text-indigo-300 mb-2">Constructor</h3>
+        <h3 className="font-mono text-xs text-indigo-300 mb-2">Constructor</h3>
         <CodeBlock
           language="typescript"
           code={`constructor(config?: MemoriConfig)
@@ -55,7 +55,7 @@ interface MemoriConfig {
       </div>
 
       {/* Method: register */}
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-purple-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-purple-500 pl-4">
         memori.llm.register()
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">
@@ -63,7 +63,7 @@ interface MemoriConfig {
       </p>
 
       <div className="bg-zinc-900/50 border border-white/5 rounded-lg p-6 mb-8">
-        <h3 className="font-mono text-sm text-purple-300 mb-2">Signature</h3>
+        <h3 className="font-mono text-xs text-purple-300 mb-2">Signature</h3>
         <CodeBlock
           language="typescript"
           code={`register(client: any, provider?: "openai" | "google" | "anthropic")`}
@@ -75,7 +75,7 @@ interface MemoriConfig {
       </div>
 
       {/* Method: search */}
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-emerald-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-emerald-500 pl-4">
         memori.search()
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">
@@ -83,7 +83,7 @@ interface MemoriConfig {
       </p>
 
       <div className="bg-zinc-900/50 border border-white/5 rounded-lg p-6 mb-8">
-        <h3 className="font-mono text-sm text-emerald-300 mb-2">Signature</h3>
+        <h3 className="font-mono text-xs text-emerald-300 mb-2">Signature</h3>
         <CodeBlock
           language="typescript"
           code={`async search(query: string, limit: number = 5): Promise<Memory[]>`}

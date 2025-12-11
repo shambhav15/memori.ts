@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, X, Sparkles } from "lucide-react";
+import { SectionHeader } from "./SectionHeader";
 
 interface ComparisonRow {
   feature: string;
@@ -43,37 +44,13 @@ export function ComparisonTable() {
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 rounded-full border border-indigo-500/20 text-xs font-mono text-indigo-400 mb-4"
-          >
-            <Sparkles className="w-3 h-3" />
-            WHY_MEMORI
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-2xl md:text-3xl font-bold text-white mb-4"
-          >
-            Memori vs. Standard Vector DBs
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-sm text-zinc-400 max-w-xl mx-auto"
-          >
-            Stop building complex RAG pipelines. Let Memori handle context
-            injection automatically.
-          </motion.p>
-        </div>
-
+        <SectionHeader
+          badgeText="WHY_MEMORI"
+          badgeIcon={Sparkles}
+          badgeColor="indigo"
+          title="Memori vs. Standard Vector DBs"
+          description="Stop building complex RAG pipelines. Let Memori handle context injection automatically."
+        />
         {/* Table */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -105,8 +82,8 @@ export function ComparisonTable() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 * index }}
-              className={`grid grid-cols-3 gap-4 px-6 py-5 border-b border-white/5 last:border-b-0 hover:bg-white/[0.02] transition-colors ${
-                row.highlight ? "bg-indigo-500/[0.03]" : ""
+              className={`grid grid-cols-3 gap-4 px-6 py-5 border-b border-white/5 last:border-b-0 hover:bg-white/2 transition-colors ${
+                row.highlight ? "bg-indigo-500/3" : ""
               }`}
             >
               <div className="text-sm font-semibold text-white">

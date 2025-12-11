@@ -10,6 +10,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { SectionHeader } from "./SectionHeader";
+
 export function WhyMemori() {
   const painPoints = [
     {
@@ -40,25 +42,11 @@ export function WhyMemori() {
     <section className="py-20 px-6 relative">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/10 rounded-full border border-red-500/20 text-xs font-mono text-red-400 mb-4"
-          >
-            THE_PROBLEM
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl md:text-2xl font-bold text-white mb-4"
-          >
-            If you're building an AI app today, you usually have to:
-          </motion.h2>
-        </div>
+        <SectionHeader
+          badgeText="THE_PROBLEM"
+          badgeColor="red"
+          title="If you're building an AI app today, you usually have to:"
+        />
 
         {/* Pain Points Grid */}
         <motion.div
@@ -95,7 +83,7 @@ export function WhyMemori() {
           transition={{ delay: 0.4 }}
           className="relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-emerald-500/10 rounded-xl blur-xl" />
+          <div className="absolute inset-0 bg-linear-to-r from-indigo-500/10 via-purple-500/10 to-emerald-500/10 rounded-xl blur-xl" />
           <div className="relative rounded-xl border border-indigo-500/20 bg-zinc-900/80 backdrop-blur-xl p-8 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-4">
               <Sparkles className="w-3 h-3" />

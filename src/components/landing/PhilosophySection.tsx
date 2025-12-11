@@ -5,7 +5,7 @@ export function PhilosophySection() {
   return (
     <section className="py-24 px-6 relative overflow-hidden">
       {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 rounded-2xl blur-xl opacity-30" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
@@ -20,7 +20,7 @@ export function PhilosophySection() {
           <blockquote className="text-2xl md:text-4xl font-bold text-white leading-relaxed mb-8">
             <span className="text-indigo-400">"</span>
             Memory should be{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
               invisible
             </span>
             .<span className="text-indigo-400">"</span>

@@ -21,15 +21,15 @@ function GettingStarted() {
         </span>
       </div>
 
-      <h1 className="text-2xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
+      <h1 className="text-xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
         Installation & Setup
       </h1>
-      <p className="text-sm text-zinc-400 mb-8 leading-relaxed font-mono">
+      <p className="text-xs text-zinc-400 mb-8 leading-relaxed font-mono">
         Get up and running with Memori-JS in under a minute. No Docker required.
       </p>
 
       {/* Step 1 */}
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-indigo-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-indigo-500 pl-4">
         1. Install Package
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">
@@ -45,7 +45,7 @@ function GettingStarted() {
       </div>
 
       {/* Step 2 */}
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-purple-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-purple-500 pl-4">
         2. Set up Environment
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">
@@ -64,7 +64,7 @@ DATABASE_URL=postgresql://...`}
       </div>
 
       {/* Step 3 */}
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-emerald-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-emerald-500 pl-4">
         3. Create your Agent
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">

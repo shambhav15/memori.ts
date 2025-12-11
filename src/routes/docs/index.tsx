@@ -21,10 +21,10 @@ function DocsIndex() {
         </span>
       </div>
 
-      <h1 className="text-2xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
+      <h1 className="text-xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
         Introduction
       </h1>
-      <p className="text-sm text-zinc-400 mb-8 leading-relaxed font-mono">
+      <p className="text-xs text-zinc-400 mb-8 leading-relaxed font-mono">
         Memori-JS is an active memory layer for your AI agents. It bridges the
         gap between transient context windows and persistent storage.
       </p>
@@ -40,7 +40,7 @@ function DocsIndex() {
         </p>
       </div>
 
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-emerald-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-emerald-500 pl-4">
         Quick Start
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">
@@ -48,10 +48,14 @@ function DocsIndex() {
       </p>
 
       <div className="mb-8">
-        <CodeBlock code="npm install memori-js" language="bash" variant="inline" />
+        <CodeBlock
+          code="npm install memori-js"
+          language="bash"
+          variant="inline"
+        />
       </div>
 
-      <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-purple-500 pl-4">
+      <h2 className="text-sm font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-purple-500 pl-4">
         Basic Usage
       </h2>
       <p className="text-xs text-zinc-500 mb-4 font-mono uppercase">
@@ -83,4 +87,3 @@ const response = await client.chat.completions.create({
     </motion.div>
   );
 }
-

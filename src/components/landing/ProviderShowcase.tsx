@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CodeBlock } from "../ui/CodeBlock";
+import { SectionHeader } from "./SectionHeader";
 
 interface Provider {
   id: string;
@@ -80,27 +81,11 @@ const message = await client.messages.create({
     <section className="py-20 px-6 relative">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xl md:text-2xl font-bold text-white mb-4 font-mono"
-          >
-            PROVIDER_AGNOSTIC
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-sm text-zinc-400 max-w-xl mx-auto"
-          >
-            Works seamlessly with OpenAI, Google GenAI, and Anthropic. One line
-            to register, zero config to maintain.
-          </motion.p>
-        </div>
-
+        <SectionHeader
+          title="PROVIDER_AGNOSTIC"
+          description="Works seamlessly with OpenAI, Google GenAI, and Anthropic. One line to register, zero config to maintain."
+          className="font-mono"
+        />
         {/* Provider Tabs */}
         <div className="flex justify-center gap-2 mb-8">
           {providers.map((provider, index) => (
@@ -118,7 +103,6 @@ const message = await client.messages.create({
             </button>
           ))}
         </div>
-
         {/* Code Display */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -127,7 +111,7 @@ const message = await client.messages.create({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className={`rounded-xl border border-white/10 overflow-hidden bg-gradient-to-br ${providers[activeProvider].color}`}
+            className={`rounded-xl border border-white/10 overflow-hidden bg-linear-to-br ${providers[activeProvider].color}`}
           >
             <div className="bg-black/60 backdrop-blur-xl p-1">
               <CodeBlock

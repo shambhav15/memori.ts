@@ -21,19 +21,19 @@ function CoreConcepts() {
         </span>
       </div>
 
-      <h1 className="text-2xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
+      <h1 className="text-xl font-bold font-mono text-white mb-6 uppercase tracking-tight">
         How it Works
       </h1>
-      <p className="text-sm text-zinc-400 mb-8 leading-relaxed font-mono">
+      <p className="text-xs text-zinc-400 mb-8 leading-relaxed font-mono">
         Understand the primitives that power Memori's active state management.
       </p>
 
       {/* Concept 1 */}
       <section className="mb-12">
-        <h2 className="text-lg font-bold font-mono text-white mb-4 uppercase border-l-2 border-indigo-500 pl-4">
+        <h2 className="text-sm font-bold font-mono text-white mb-4 uppercase border-l-2 border-indigo-500 pl-4">
           1. Active Memory Layer
         </h2>
-        <p className="text-sm text-zinc-400 leading-relaxed mb-6 font-sans">
+        <p className="text-xs text-zinc-400 leading-relaxed mb-6 font-sans">
           Unlike a traditional vector database where you push/pull vectors
           manually, <span className="text-white font-medium">Memori</span> acts
           as a <strong>middleware</strong>. It sits between your application
@@ -55,10 +55,10 @@ function CoreConcepts() {
 
       {/* Concept 2 */}
       <section className="mb-12">
-        <h2 className="text-lg font-bold font-mono text-white mb-4 uppercase border-l-2 border-emerald-500 pl-4">
+        <h2 className="text-sm font-bold font-mono text-white mb-4 uppercase border-l-2 border-emerald-500 pl-4">
           2. Auto-Augmentation
         </h2>
-        <p className="text-sm text-zinc-400 leading-relaxed mb-6 font-sans">
+        <p className="text-xs text-zinc-400 leading-relaxed mb-6 font-sans">
           This is the "magic" part. When you call <code>register(client)</code>,
           we monkey-patch the client's completion methods to add a
           pre-processing and post-processing step.
@@ -110,10 +110,10 @@ function CoreConcepts() {
 
       {/* Concept 3 */}
       <section className="mb-12">
-        <h2 className="text-lg font-bold font-mono text-white mb-4 uppercase border-l-2 border-purple-500 pl-4">
+        <h2 className="text-sm font-bold font-mono text-white mb-4 uppercase border-l-2 border-purple-500 pl-4">
           3. Attribution & Scoping
         </h2>
-        <p className="text-sm text-zinc-400 leading-relaxed mb-6 font-sans">
+        <p className="text-xs text-zinc-400 leading-relaxed mb-6 font-sans">
           For multi-tenant applications, you need to ensure User A essentially
           never sees User B's memories. Memori handles this via{" "}
           <strong>Attribution</strong>.
