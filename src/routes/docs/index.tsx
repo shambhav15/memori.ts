@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { CodeBlock } from "../../components/ui/CodeBlock";
 
 export const Route = createFileRoute("/docs/")({
   component: DocsIndex,
@@ -11,7 +12,7 @@ function DocsIndex() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="max-w-3xl"
+      className="max-w-3xl min-h-screen"
     >
       <div className="flex items-center gap-2 mb-6">
         <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
@@ -28,7 +29,7 @@ function DocsIndex() {
         gap between transient context windows and persistent storage.
       </p>
 
-      <div className="my-8 p-6 bg-zinc-900/50 border border-indigo-500/20 rounded-lg relative overflow-hidden group hover:border-indigo-500/50 transition-colors">
+      <div className="my-8 p-6 bg-black/40 border border-indigo-500/20 rounded-lg relative overflow-hidden group hover:border-indigo-500/50 transition-colors backdrop-blur-sm">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(99,102,241,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] animate-[shimmer_2s_infinite]" />
         <p className="m-0 text-indigo-300 text-xs font-mono flex gap-2 relative z-10">
           <span className="text-lg">💡</span>
@@ -46,10 +47,8 @@ function DocsIndex() {
         Package Installation
       </p>
 
-      <div className="bg-black border border-white/10 rounded-lg p-4 mb-8">
-        <code className="text-xs font-mono text-zinc-300">
-          npm install memori-js
-        </code>
+      <div className="mb-8">
+        <CodeBlock code="npm install memori-js" language="bash" variant="inline" />
       </div>
 
       <h2 className="text-lg font-bold font-mono text-white mb-4 mt-12 uppercase border-l-2 border-purple-500 pl-4">
@@ -59,8 +58,10 @@ function DocsIndex() {
         Initialize Memori and register your LLM client
       </p>
 
-      <div className="bg-black border border-white/10 rounded-lg p-4 overflow-x-auto">
-        <code className="text-xs font-mono text-zinc-300 leading-relaxed whitespace-pre">{`import { Memori } from "memori-js";
+      <div className="overflow-hidden rounded-lg mb-8">
+        <CodeBlock
+          language="typescript"
+          code={`import { Memori } from "memori-js";
 import OpenAI from "openai";
 
 // 1. Initialize Memori
@@ -76,8 +77,10 @@ memori.llm.register(client);
 const response = await client.chat.completions.create({
   model: "gpt-4",
   messages: [{ role: "user", content: "My name is Alice." }],
-});`}</code>
+});`}
+        />
       </div>
     </motion.div>
   );
 }
+
