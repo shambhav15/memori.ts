@@ -6,9 +6,9 @@ import { BackgroundBeams } from "../ui/BackgroundBeams";
 
 export function Hero() {
   return (
-    <section className="relative pt-32 pb-16 px-6 min-h-[80vh] flex flex-col justify-center overflow-hidden bg-[#020205] selection:bg-indigo-500/30">
+    <section className="relative pt-24 pb-12 px-6 flex flex-col justify-center overflow-hidden bg-[#020205] selection:bg-indigo-500/30 border-b border-white/5">
       {/* Dynamic Background Beams */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <BackgroundBeams />
       </div>
 
@@ -18,9 +18,9 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center">
         {/* Left Column: Technical Copy */}
-        <div className="text-left space-y-6">
+        <div className="text-left space-y-5">
           {/* Status Indicator */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -31,19 +31,21 @@ export function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            SYSTEM_ACTIVE: V1.2.0-STABLE
+            <span className="px-2 py-0.5 text-xs rounded bg-emerald-500/10 border border-emerald-500/20">
+              SYSTEM_ACTIVE: V1.0.57
+            </span>
           </motion.div>
 
           {/* Main Headline - Dense & Technical */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-lg md:text-xl font-bold font-mono tracking-tight text-white uppercase border-l-2 border-indigo-500 pl-4"
+              className="text-sm font-bold font-mono tracking-tight text-white uppercase border-l-2 border-indigo-500 pl-4"
             >
               SQL_NATIVE_MEMORY_LAYER <br />
-              <span className="text-zinc-500">FOR_AUTONOMOUS_AGENTS</span>
+              <span className="text-zinc-500 text-sm">FOR_AGENTS & LLMS</span>
             </motion.h1>
           </div>
 
@@ -53,41 +55,32 @@ export function Hero() {
             transition={{ delay: 0.2 }}
             className="text-sm text-zinc-400 max-w-lg leading-relaxed border-l-2 border-white/5 pl-4"
           >
-            Bridge the context gap. Memori-JS injects active state into LLM
-            completions without manual vector store management. Zero-config.
-            Type-safe.
+            Bridge context gaps. Injects state into LLM completions without
+            vector store management.
+            <span className="text-zinc-300">
+              {" "}
+              ZERO-CONFIG. TYPE-SAFE. LOCAL-FIRST.
+            </span>
           </motion.p>
 
-          {/* Metrics / Stats Row */}
+          {/* Metrics / Stats Row - Condensed */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-3 gap-4 py-6 border-y border-white/5"
+            className="flex flex-wrap gap-4 py-4 border-y border-white/5"
           >
-            <div>
-              <div className="text-xs text-zinc-500 font-mono mb-1">
-                LATENCY
-              </div>
-              <div className="text-sm font-bold text-white flex items-center gap-2">
-                <Activity size={14} className="text-indigo-400" /> &lt;20ms
-              </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-zinc-900/50 border border-white/5">
+              <Activity size={12} className="text-indigo-400" />
+              <div className="text-xs font-bold text-white">20ms LATENCY</div>
             </div>
-            <div>
-              <div className="text-xs text-zinc-500 font-mono mb-1">
-                STORAGE
-              </div>
-              <div className="text-sm font-bold text-white flex items-center gap-2">
-                <Database size={14} className="text-purple-400" /> SQLite/PG
-              </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-zinc-900/50 border border-white/5">
+              <Database size={12} className="text-purple-400" />
+              <div className="text-xs font-bold text-white">SQLITE / PG</div>
             </div>
-            <div>
-              <div className="text-xs text-zinc-500 font-mono mb-1">
-                RUNTIME
-              </div>
-              <div className="text-sm font-bold text-white flex items-center gap-2">
-                <Cpu size={14} className="text-emerald-400" /> Node/Bun
-              </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-zinc-900/50 border border-white/5">
+              <Cpu size={12} className="text-emerald-400" />
+              <div className="text-xs font-bold text-white">NODE / BUN</div>
             </div>
           </motion.div>
 
@@ -96,19 +89,23 @@ export function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-start gap-4"
+            className="flex flex-col sm:flex-row items-center gap-4"
           >
             <div className="w-full sm:w-auto">
               <CodeBlock
                 code="npm install memori-js"
                 language="bash"
                 variant="inline"
-                className="border-indigo-500/20 bg-zinc-900/50"
+                className="border-indigo-500/20 bg-zinc-900/80"
               />
             </div>
 
-            <Button to="/docs" size="sm" className="font-mono text-xs h-9">
-              INIT_DOCUMENTATION <ArrowRight className="w-3 h-3 ml-2" />
+            <Button
+              to="/docs"
+              size="sm"
+              className="font-mono text-xs h-9 px-6 bg-white text-black hover:bg-zinc-200 w-full sm:w-auto"
+            >
+              READ_DOCS <ArrowRight className="w-3 h-3 ml-2" />
             </Button>
           </motion.div>
         </div>
