@@ -2,12 +2,15 @@ import { motion } from "framer-motion";
 import { ArrowRight, Terminal, Activity, Database, Cpu } from "lucide-react";
 import { Button } from "../ui/Button";
 import { CodeBlock } from "../ui/CodeBlock";
+import { BackgroundBeams } from "../ui/BackgroundBeams";
 
 export function Hero() {
   return (
     <section className="relative pt-32 pb-16 px-6 min-h-[80vh] flex flex-col justify-center overflow-hidden bg-[#020205] selection:bg-indigo-500/30">
-      {/* Subtle Background Gradient for Depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))]" />
+      {/* Dynamic Background Beams */}
+      <div className="absolute inset-0 z-0">
+        <BackgroundBeams />
+      </div>
 
       {/* HUD Grid Background - Fainter */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">

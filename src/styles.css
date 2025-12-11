@@ -20,3 +20,12 @@ code {
     "JetBrains Mono", "Fira Code", source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
 }
+@keyframes border-beam {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.animate-border-beam {
+  animation: border-beam calc(var(--duration) * 1s) infinite linear;
+}
