@@ -14,7 +14,7 @@ export function Hero() {
 
       {/* HUD Grid Background - Fainter */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size[:24px_24px]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
 
@@ -38,15 +38,30 @@ export function Hero() {
 
           {/* Main Headline - Dense & Technical */}
           <div className="space-y-3">
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-sm font-bold font-mono tracking-tight text-white uppercase border-l-2 border-indigo-500 pl-4"
+              className="border-l-2 border-indigo-500 pl-4"
             >
-              SQL_NATIVE_MEMORY_LAYER <br />
-              <span className="text-zinc-500 text-sm">FOR_AGENTS & LLMS</span>
-            </motion.h1>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-2">
+                The SQL-Native AI Memory Fabric
+              </h1>
+              <p className="text-base md:text-lg text-zinc-400">
+                for JavaScript & TypeScript
+              </p>
+            </motion.div>
+            <motion.a
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.15 }}
+              href="https://memorilabs.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 rounded-full border border-purple-500/20 text-[10px] font-mono text-purple-400 hover:bg-purple-500/20 transition-colors"
+            >
+              ✨ Inspired by memorilabs.ai Python library
+            </motion.a>
           </div>
 
           <motion.p
@@ -55,11 +70,12 @@ export function Hero() {
             transition={{ delay: 0.2 }}
             className="text-sm text-zinc-400 max-w-lg leading-relaxed border-l-2 border-white/5 pl-4"
           >
-            Bridge context gaps. Injects state into LLM completions without
-            vector store management.
-            <span className="text-zinc-300">
-              {" "}
-              ZERO-CONFIG. TYPE-SAFE. LOCAL-FIRST.
+            <span className="text-white font-medium">memori-js</span> is an{" "}
+            <span className="text-indigo-400">active memory layer</span> that
+            lives inside your application, automatically managing context for
+            your AI agents.
+            <span className="block mt-2 text-zinc-300 font-mono text-xs">
+              ZERO-CONFIG · TYPE-SAFE · LOCAL-FIRST
             </span>
           </motion.p>
 

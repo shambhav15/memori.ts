@@ -13,6 +13,7 @@ import { Route as DocsRouteImport } from './routes/docs'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as DocsGettingStartedRouteImport } from './routes/docs/getting-started'
 import { Route as DocsCoreConceptsRouteImport } from './routes/docs/core-concepts'
 import { Route as DocsApiReferenceRouteImport } from './routes/docs/api-reference'
 
@@ -36,6 +37,11 @@ const DocsIndexRoute = DocsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DocsRoute,
 } as any)
+const DocsGettingStartedRoute = DocsGettingStartedRouteImport.update({
+  id: '/getting-started',
+  path: '/getting-started',
+  getParentRoute: () => DocsRoute,
+} as any)
 const DocsCoreConceptsRoute = DocsCoreConceptsRouteImport.update({
   id: '/core-concepts',
   path: '/core-concepts',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/docs': typeof DocsRouteWithChildren
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
   '/docs/': typeof DocsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/community': typeof CommunityRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
   '/docs': typeof DocsIndexRoute
 }
 export interface FileRoutesById {
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/docs': typeof DocsRouteWithChildren
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
   '/docs/': typeof DocsIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/docs/api-reference'
     | '/docs/core-concepts'
+    | '/docs/getting-started'
     | '/docs/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/docs/api-reference'
     | '/docs/core-concepts'
+    | '/docs/getting-started'
     | '/docs'
   id:
     | '__root__'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/docs/api-reference'
     | '/docs/core-concepts'
+    | '/docs/getting-started'
     | '/docs/'
   fileRoutesById: FileRoutesById
 }
@@ -133,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsIndexRouteImport
       parentRoute: typeof DocsRoute
     }
+    '/docs/getting-started': {
+      id: '/docs/getting-started'
+      path: '/getting-started'
+      fullPath: '/docs/getting-started'
+      preLoaderRoute: typeof DocsGettingStartedRouteImport
+      parentRoute: typeof DocsRoute
+    }
     '/docs/core-concepts': {
       id: '/docs/core-concepts'
       path: '/core-concepts'
@@ -153,12 +172,14 @@ declare module '@tanstack/react-router' {
 interface DocsRouteChildren {
   DocsApiReferenceRoute: typeof DocsApiReferenceRoute
   DocsCoreConceptsRoute: typeof DocsCoreConceptsRoute
+  DocsGettingStartedRoute: typeof DocsGettingStartedRoute
   DocsIndexRoute: typeof DocsIndexRoute
 }
 
 const DocsRouteChildren: DocsRouteChildren = {
   DocsApiReferenceRoute: DocsApiReferenceRoute,
   DocsCoreConceptsRoute: DocsCoreConceptsRoute,
+  DocsGettingStartedRoute: DocsGettingStartedRoute,
   DocsIndexRoute: DocsIndexRoute,
 }
 

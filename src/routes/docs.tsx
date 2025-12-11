@@ -13,26 +13,26 @@ function DocsLayout() {
       icon: <Book size={18} />,
     },
     {
-      to: "/docs/getting-started", // We'll need to create this route or handle it
+      to: "/docs/getting-started",
       label: "Getting Started",
       icon: <Play size={18} />,
     },
     {
-      to: "/docs/core-concepts", // Placeholder
+      to: "/docs/core-concepts",
       label: "Core Concepts",
       icon: <Layers size={18} />,
     },
     {
-      to: "/docs/api-reference", // Placeholder
+      to: "/docs/api-reference",
       label: "API Reference",
       icon: <Code size={18} />,
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b0c10] text-white pt-16 flex">
+    <div className="min-h-screen bg-zinc-900 text-white pt-16 flex">
       {/* Sidebar */}
-      <aside className="w-64 fixed top-16 bottom-0 left-0 border-r border-white/10 overflow-y-auto bg-[#0b0c10]/50 backdrop-blur-xl hidden md:block">
+      <aside className="w-64 fixed top-16 bottom-0 left-0 border-r border-white/10 overflow-y-auto bg-zinc-900/50 backdrop-blur-xl hidden md:block">
         <div className="p-6">
           <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4">
             Documentation
