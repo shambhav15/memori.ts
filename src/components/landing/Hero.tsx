@@ -1,5 +1,5 @@
 import { ArrowRight, Github } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../ui/Button";
 import { Badge } from "../ui/badge";
 import { CodeBlock } from "../ui/CodeBlock";
 

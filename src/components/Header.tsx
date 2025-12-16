@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
+import { Button } from "./ui/Button";
 
 export default function Header() {
   const navLinks = [
