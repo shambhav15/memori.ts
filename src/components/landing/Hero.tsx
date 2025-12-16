@@ -1,7 +1,7 @@
 import { ArrowRight, Github } from "lucide-react";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { CodeBlock } from "../ui/CodeBlock";
+import { CodeBlock } from "../ui/code-block";
 
 export function Hero() {
   return (

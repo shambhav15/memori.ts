@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CodeBlock } from "../../components/ui/CodeBlock";
+import { CodeBlock } from "../../components/ui/code-block";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb } from "lucide-react";
 

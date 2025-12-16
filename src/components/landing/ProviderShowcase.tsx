@@ -1,4 +1,5 @@
-import { CodeBlock } from "../ui/CodeBlock";
+import { CodeBlock } from "../ui/code-block";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Provider {
