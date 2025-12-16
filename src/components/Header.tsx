@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Github, BookOpen, Users } from "lucide-react";
-import { Button } from "./ui/button";
+
 import { ModeToggle } from "./mode-toggle";
 import {
   Sheet,
@@ -10,6 +10,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
 
 export default function Header() {
   const navLinks = [
