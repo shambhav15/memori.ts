@@ -1,6 +1,6 @@
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
-import { cn } from "../../utils/cn";
 
 interface SectionHeaderProps {
   badgeText?: string;

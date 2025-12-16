@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { cn } from "../../utils/cn";
 
 export const BackgroundBeams = ({ className }: { className?: string }) => {
   return (
@@ -11,7 +10,7 @@ export const BackgroundBeams = ({ className }: { className?: string }) => {
         className
       )}
     >
-      <div className="absolute h-[100%] w-[100%] left-0 top-0 [transform-style:preserve-3d]">
+      <div className="absolute h-full w-full left-0 top-0 transform-3d">
         {/* Central light source */}
         <div className="absolute left-1/2 top-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 bg-indigo-500/20 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
 

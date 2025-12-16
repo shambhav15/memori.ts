@@ -1,126 +1,123 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { CodeBlock } from "../ui/CodeBlock";
-import { SectionHeader } from "./SectionHeader";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Provider {
   id: string;
   name: string;
-  icon: string;
-  color: string;
   code: string;
 }
 
 export function ProviderShowcase() {
-  const [activeProvider, setActiveProvider] = useState(0);
-
   const providers: Provider[] = [
     {
       id: "openai",
       name: "OpenAI",
-      icon: "🤖",
-      color: "from-emerald-500/20 to-emerald-500/5",
-      code: `import OpenAI from "openai";
-import { Memori } from "memori-js";
+      code: `// 1. Initialize Memory
+const memori = new Memori();
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const memori = new Memori({ googleApiKey: process.env.GOOGLE_API_KEY });
+// 2. Register for auto-augmentation
+memori.llm.register(client);
 
-// Register for auto-augmentation
-memori.llm.register(client, "openai");
-
-// Now, every call is memory-augmented!
-const response = await client.chat.completions.create({
+// 3. Every call is memory-augmented!
+await client.chat.completions.create({
   model: "gpt-4",
-  messages: [{ role: "user", content: "What is my favorite color?" }],
+  messages: [...]
 });`,
     },
     {
       id: "google",
       name: "Google GenAI",
-      icon: "✨",
-      color: "from-blue-500/20 to-blue-500/5",
-      code: `import { GoogleGenAI } from "@google/genai";
-import { Memori } from "memori-js";
+      code: `// 1. Initialize Memory
+const memori = new Memori();
 
-const client = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
-const memori = new Memori({ googleApiKey: process.env.GOOGLE_API_KEY });
+// 2. Register Gemini
+memori.llm.register(client);
 
-// Register Gemini for memory injection
-memori.llm.register(client, "google");
-
-// Use Gemini as normal - context is injected automatically
-const result = await client.models.generateContent({
+// 3. Use Gemini as normal
+await client.models.generateContent({
   model: "gemini-pro",
-  contents: "Remember our last conversation?",
+  contents: [...]
 });`,
     },
     {
       id: "anthropic",
       name: "Anthropic",
-      icon: "🎭",
-      color: "from-orange-500/20 to-orange-500/5",
-      code: `import Anthropic from "@anthropic-ai/sdk";
-import { Memori } from "memori-js";
+      code: `// 1. Initialize Memory
+const memori = new Memori();
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const memori = new Memori({ googleApiKey: process.env.GOOGLE_API_KEY });
+// 2. Patch Claude
+memori.llm.register(client);
 
-// Patch Claude for memory awareness
-memori.llm.register(client, "anthropic");
-
-// Claude now has persistent memory
-const message = await client.messages.create({
-  model: "claude-3-opus-20240229",
-  messages: [{ role: "user", content: "What do I like?" }],
+// 3. Claude has persistent memory
+await client.messages.create({
+  model: "claude-3-opus",
+  messages: [...]
 });`,
     },
   ];
 
   return (
-    <section className="py-20 px-6 relative">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <SectionHeader
-          title="PROVIDER_AGNOSTIC"
-          description="Works seamlessly with OpenAI, Google GenAI, and Anthropic. One line to register, zero config to maintain."
-          className="font-mono"
-        />
-        {/* Provider Tabs */}
-        <div className="flex justify-center gap-2 mb-8">
-          {providers.map((provider, index) => (
-            <button
-              key={provider.id}
-              onClick={() => setActiveProvider(index)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-mono transition-all ${
-                activeProvider === index
-                  ? "bg-indigo-500/20 border border-indigo-500/30 text-white"
-                  : "bg-zinc-900/50 border border-white/5 text-zinc-500 hover:text-zinc-300 hover:border-white/10"
-              }`}
-            >
-              <span>{provider.icon}</span>
-              <span>{provider.name}</span>
-            </button>
-          ))}
+    <section className="container mx-auto px-4 py-16">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight mb-2">
+            Provider Agnostic
+          </h2>
+          <p className="text-muted-foreground text-base max-w-xl">
+            Works seamlessly with OpenAI, Google GenAI, and Anthropic. One line
+            to register.
+          </p>
         </div>
-        {/* Code Display */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeProvider}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className={`rounded-xl border border-white/10 overflow-hidden bg-linear-to-br ${providers[activeProvider].color}`}
-          >
-            <div className="bg-black/60 backdrop-blur-xl p-1">
-              <CodeBlock
-                code={providers[activeProvider].code}
-                language="typescript"
-              />
+
+        <Tabs defaultValue="openai" className="w-full md:w-auto">
+          <TabsList className="grid w-full grid-cols-3 md:w-[400px]">
+            {providers.map((provider) => (
+              <TabsTrigger key={provider.id} value={provider.id}>
+                {provider.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          <div className="hidden md:block">
+            {/* Spacer for desktop layout if needed, or keeping tabs aligned right */}
+          </div>
+        </Tabs>
+      </div>
+
+      <div className="w-full">
+        <Tabs defaultValue="openai" className="w-full" value={undefined}>
+          {/* Note: We are controlling the tabs via the list above, but for simplicity in this unstructured component we might need to unify state if we want the list to control the content below. 
+               Actually standard Shadcn Tabs component expects TabsList and TabsContent to be children of the same Tabs root. 
+               Let's refactor to keep them together. */}
+        </Tabs>
+
+        {/* Re-implementing correctly with single Root */}
+        <Tabs defaultValue="openai" className="w-full">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
+            <div className="text-left">
+              {/* Mobile header repeated or just assume the top header covers it? Let's use the top header for text and put TabsList here */}
             </div>
-          </motion.div>
-        </AnimatePresence>
+            <TabsList className="w-full md:w-auto">
+              {providers.map((provider) => (
+                <TabsTrigger key={provider.id} value={provider.id}>
+                  {provider.name}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          {providers.map((provider) => (
+            <TabsContent key={provider.id} value={provider.id} className="mt-0">
+              <div className="rounded-xl border bg-muted/30 p-1 backdrop-blur-sm">
+                <CodeBlock
+                  code={provider.code}
+                  language="typescript"
+                  className="text-sm"
+                />
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
     </section>
   );

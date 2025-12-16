@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   Database,
   Scissors,
@@ -9,124 +8,91 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
-
-import { SectionHeader } from "./SectionHeader";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function WhyMemori() {
   const painPoints = [
-    {
-      icon: Database,
-      text: "Set up a vector DB (Pinecone, Qdrant, Weaviate...)",
-      color: "text-red-400",
-    },
-    {
-      icon: Scissors,
-      text: "Manually chunk and embed user input",
-      color: "text-red-400",
-    },
-    { icon: FileSearch, text: "Query the DB", color: "text-red-400" },
-    {
-      icon: MessageSquare,
-      text: "Inject user context into the system prompt",
-      color: "text-red-400",
-    },
-    { icon: Brain, text: "Call the LLM", color: "text-red-400" },
-    {
-      icon: Save,
-      text: "Save the new conversation back to the DB",
-      color: "text-red-400",
-    },
+    { icon: Database, text: "Set up a vector DB" },
+    { icon: Scissors, text: "Chunk/embed manually" },
+    { icon: FileSearch, text: "Query the DB" },
+    { icon: MessageSquare, text: "Inject context" },
+    { icon: Brain, text: "Call the LLM" },
+    { icon: Save, text: "Save conversation" },
   ];
 
   return (
-    <section className="py-20 px-6 relative">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <SectionHeader
-          badgeText="THE_PROBLEM"
-          badgeColor="red"
-          title="If you're building an AI app today, you usually have to:"
-        />
-
-        {/* Pain Points Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12"
-        >
-          {painPoints.map((point, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 * index }}
-              className="flex items-center gap-3 p-4 rounded-lg bg-zinc-900/50 border border-white/5 hover:border-red-500/20 transition-colors group"
-            >
-              <div className="p-2 rounded-lg bg-red-500/10 group-hover:bg-red-500/20 transition-colors">
-                <point.icon className="w-4 h-4 text-red-400" />
-              </div>
-              <span className="text-xs font-mono text-zinc-400 group-hover:text-zinc-300 transition-colors">
-                {index + 1}. {point.text}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Solution */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="relative"
-        >
-          <div className="absolute inset-0 bg-linear-to-r from-indigo-500/10 via-purple-500/10 to-emerald-500/10 rounded-xl blur-xl" />
-          <div className="relative rounded-xl border border-indigo-500/20 bg-zinc-900/80 backdrop-blur-xl p-8 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-4">
-              <Sparkles className="w-3 h-3" />
-              THE_SOLUTION
-            </div>
-            <h3 className="text-lg md:text-xl font-bold text-white mb-6">
-              With <span className="text-indigo-400">memori-js</span>, you just
-              do this:
-            </h3>
-
-            <div className="max-w-md mx-auto text-left">
-              <div className="bg-black/60 rounded-lg p-4 font-mono text-sm space-y-2 border border-white/10">
-                <div className="text-zinc-500">
-                  // 1 line to register memory
-                </div>
-                <div>
-                  <span className="text-purple-400">memori</span>
-                  <span className="text-zinc-300">.llm.</span>
-                  <span className="text-blue-400">register</span>
-                  <span className="text-zinc-300">(client);</span>
-                </div>
-                <div className="text-zinc-500 pt-2">
-                  // Call your LLM as normal
-                </div>
-                <div>
-                  <span className="text-purple-400">await</span>
-                  <span className="text-zinc-300">
-                    {" "}
-                    client.chat.completions.
-                  </span>
-                  <span className="text-blue-400">create</span>
-                  <span className="text-zinc-300">({"{ ... }"});</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 flex items-center justify-center gap-2 text-xs font-mono text-zinc-500">
-              <span>That's it.</span>
-              <ArrowRight className="w-3 h-3" />
-              <span className="text-emerald-400">Memory is now automatic.</span>
-            </div>
+    <section className="container mx-auto px-4 py-16">
+      <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+        {/* The Problem */}
+        <div className="space-y-6 flex flex-col justify-center">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight mb-3">
+              The Problem
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Building memory for AI agents usually requires glueing together
+              multiple complex systems.
+            </p>
           </div>
-        </motion.div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            {painPoints.map((point, index) => (
+              <Card
+                key={index}
+                className="bg-muted/30 border-primary/5 shadow-none hover:bg-muted/60 transition-colors"
+              >
+                <CardContent className="flex items-center gap-3 p-3">
+                  <point.icon className="w-4 h-4 text-muted-foreground" />
+                  <span className="font-medium text-sm text-foreground/80">
+                    {point.text}
+                  </span>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* The Solution */}
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
+          <Card className="relative h-full border-emerald-500/20 bg-card/80 backdrop-blur-xl overflow-hidden">
+            <CardHeader className="pb-2 border-b border-emerald-500/10 bg-emerald-500/5">
+              <CardTitle className="flex items-center gap-2 text-base font-medium text-emerald-500">
+                <Sparkles className="w-4 h-4" />
+                The Solution: Zero Config
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 space-y-6">
+              <p className="text-muted-foreground text-lg">
+                Memori.ts abstracts the entire RAG pipeline into a single line
+                of code.
+              </p>
+
+              <div className="bg-muted/80 rounded-lg p-5 font-mono text-sm space-y-3 overflow-x-auto border border-emerald-500/10">
+                <div className="flex gap-2 text-muted-foreground opacity-70">
+                  <span>//</span> <span>1. Register middleware</span>
+                </div>
+                <div className="pl-4 border-l-2 border-emerald-500/30">
+                  <span className="text-purple-400">memori</span>.llm.
+                  <span className="text-blue-400">register</span>(client);
+                </div>
+                <div className="flex gap-2 text-muted-foreground opacity-70 mt-4">
+                  <span>//</span> <span>2. Call LLM as normal</span>
+                </div>
+                <div className="pl-4 border-l-2 border-amber-500/30">
+                  <span className="text-purple-400">await</span>{" "}
+                  client.chat.completions.
+                  <span className="text-blue-400">create</span>(...)
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm font-medium text-emerald-500 bg-emerald-500/10 w-fit px-3 py-1.5 rounded-full">
+                <ArrowRight className="w-4 h-4" />
+                <span>Memory is auto-injected.</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </section>
   );

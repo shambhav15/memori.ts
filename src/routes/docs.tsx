@@ -7,11 +7,7 @@ export const Route = createFileRoute("/docs")({
 
 function DocsLayout() {
   const links = [
-    {
-      to: "/docs",
-      label: "Introduction",
-      icon: <Book size={14} />,
-    },
+    { to: "/docs", label: "Introduction", icon: <Book size={14} /> },
     {
       to: "/docs/getting-started",
       label: "Getting Started",
@@ -30,11 +26,11 @@ function DocsLayout() {
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-white pt-16 flex">
+    <div className="min-h-screen bg-background flex flex-col md:flex-row pt-16">
       {/* Sidebar */}
-      <aside className="w-64 fixed top-16 bottom-0 left-0 border-r border-white/10 overflow-y-auto bg-zinc-900/50 backdrop-blur-xl hidden md:block">
-        <div className="p-6">
-          <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4">
+      <aside className="w-full md:w-64 md:fixed md:top-16 md:bottom-0 md:left-0 border-b md:border-b-0 md:border-r border-border bg-background/95 backdrop-blur z-30">
+        <div className="p-6 h-full overflow-y-auto">
+          <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4 px-2">
             Documentation
           </h2>
           <nav className="space-y-1">
@@ -44,9 +40,9 @@ function DocsLayout() {
                 to={link.to}
                 activeProps={{
                   className:
-                    "bg-indigo-500/10 text-indigo-400 border-r-2 border-indigo-400",
+                    "bg-primary/5 text-primary border-primary font-medium",
                 }}
-                className="flex items-center gap-3 px-4 py-2 text-xs text-zinc-400 hover:text-white hover:bg-white/5 rounded-r-lg transition-colors border-r-2 border-transparent"
+                className="flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-all border-l-2 border-transparent"
               >
                 {link.icon}
                 {link.label}
@@ -57,7 +53,7 @@ function DocsLayout() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 md:ml-64 p-6 md:p-12 max-w-4xl mx-auto w-full">
+      <main className="flex-1 md:ml-64 w-full max-w-4xl mx-auto p-6 md:p-12 lg:pr-24">
         <Outlet />
       </main>
     </div>

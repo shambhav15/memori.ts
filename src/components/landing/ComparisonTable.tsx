@@ -1,21 +1,19 @@
-import { motion } from "framer-motion";
-import { Check, X, Sparkles } from "lucide-react";
-import { SectionHeader } from "./SectionHeader";
-
-interface ComparisonRow {
-  feature: string;
-  vectorDb: string;
-  memori: string;
-  highlight?: boolean;
-}
+import { Check, X } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export function ComparisonTable() {
-  const rows: ComparisonRow[] = [
+  const rows = [
     {
       feature: "Setup",
       vectorDb: "Requires Docker, API keys, or cloud infrastructure.",
       memori: "Zero-Config. Creates a local memori.db SQLite file instantly.",
-      highlight: true,
     },
     {
       feature: "Scalability",
@@ -28,7 +26,6 @@ export function ComparisonTable() {
       vectorDb: "You write the RAG pipeline logic manually.",
       memori:
         "Auto-Augmentation. Patches the LLM client to inject memory automatically.",
-      highlight: true,
     },
     {
       feature: "Complexity",
@@ -38,66 +35,44 @@ export function ComparisonTable() {
   ];
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(99,102,241,0.08),transparent)]" />
+    <section className="container mx-auto px-4 py-24">
+      <div className="text-center mb-16">
+        <h2 className="text-3xl font-semibold tracking-tight mb-4">
+          Memori vs Standard Vector DBs
+        </h2>
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          Stop building complex RAG pipelines. Let Memori handle context
+          injection automatically.
+        </p>
+      </div>
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        {/* Header */}
-        <SectionHeader
-          badgeText="WHY_MEMORI"
-          badgeIcon={Sparkles}
-          badgeColor="indigo"
-          title="Memori vs. Standard Vector DBs"
-          description="Stop building complex RAG pipelines. Let Memori handle context injection automatically."
-        />
-        {/* Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="rounded-xl border border-white/10 overflow-hidden bg-zinc-900/50 backdrop-blur-xl"
-        >
-          {/* Table Header */}
-          <div className="grid grid-cols-3 gap-4 px-6 py-4 border-b border-white/10 bg-black/40">
-            <div className="text-xs font-mono text-zinc-500 uppercase tracking-wider">
-              Feature
-            </div>
-            <div className="text-xs font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-              <X className="w-3 h-3 text-red-400" />
-              Standard Vector DB
-            </div>
-            <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider flex items-center gap-2">
-              <Check className="w-3 h-3 text-emerald-400" />
-              🧠 Memori-JS
-            </div>
-          </div>
-
-          {/* Table Rows */}
-          {rows.map((row, index) => (
-            <motion.div
-              key={row.feature}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 * index }}
-              className={`grid grid-cols-3 gap-4 px-6 py-5 border-b border-white/5 last:border-b-0 hover:bg-white/2 transition-colors ${
-                row.highlight ? "bg-indigo-500/3" : ""
-              }`}
-            >
-              <div className="text-sm font-semibold text-white">
-                {row.feature}
-              </div>
-              <div className="text-xs text-zinc-500 leading-relaxed">
-                {row.vectorDb}
-              </div>
-              <div className="text-xs text-zinc-300 leading-relaxed">
-                {row.memori}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Feature</TableHead>
+              <TableHead>Standard Vector DB</TableHead>
+              <TableHead className="text-primary font-bold">
+                Memori.ts
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row, i) => (
+              <TableRow key={i}>
+                <TableCell className="font-medium">{row.feature}</TableCell>
+                <TableCell className="text-muted-foreground flex items-center gap-2">
+                  <X className="w-4 h-4 text-destructive" />
+                  {row.vectorDb}
+                </TableCell>
+                <TableCell className="font-medium flex items-center gap-2">
+                  <Check className="w-4 h-4 text-emerald-600" />
+                  {row.memori}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </section>
   );

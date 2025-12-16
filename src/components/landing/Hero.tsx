@@ -1,213 +1,89 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Terminal, Activity, Database, Cpu } from "lucide-react";
-import { Button } from "../ui/Button";
+import { ArrowRight, Github } from "lucide-react";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 import { CodeBlock } from "../ui/CodeBlock";
-import { BackgroundBeams } from "../ui/BackgroundBeams";
 
 export function Hero() {
   return (
-    <section className="relative pt-24 pb-12 px-6 flex flex-col justify-center overflow-hidden bg-[#020205] selection:bg-indigo-500/30 border-b border-white/5">
-      {/* Dynamic Background Beams */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <BackgroundBeams />
+    <section className="relative pt-20 pb-12 overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/5 blur-[100px]"></div>
       </div>
 
-      {/* HUD Grid Background - Fainter */}
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size[:24px_24px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-      </div>
+      <div className="container mx-auto px-4 flex flex-col items-center text-center gap-6">
+        <Badge
+          variant="secondary"
+          className="px-3 py-1 text-xs border border-primary/20 bg-primary/5 text-primary rounded-full hover:bg-primary/10 transition-colors"
+        >
+          v1.0.57 Available
+        </Badge>
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center">
-        {/* Left Column: Technical Copy */}
-        <div className="text-left space-y-5">
-          {/* Status Indicator */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 text-xs font-mono text-emerald-400"
+        <h1 className="max-w-4xl text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70">
+          The Memory Layer for <br /> AI Agents
+        </h1>
+
+        <p className="max-w-xl text-lg text-muted-foreground leading-relaxed">
+          SQL-native active context management for your AI applications.{" "}
+          <br className="hidden sm:block" />
+          Long-term memory, made simple.
+        </p>
+
+        <div className="flex gap-4 mt-2">
+          <Button
+            size="lg"
+            className="h-10 px-6 text-sm font-medium rounded-full"
+            asChild
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="px-2 py-0.5 text-xs rounded bg-emerald-500/10 border border-emerald-500/20">
-              SYSTEM_ACTIVE: V1.0.57
-            </span>
-          </motion.div>
-
-          {/* Main Headline - Dense & Technical */}
-          <div className="space-y-3">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="border-l-2 border-indigo-500 pl-4"
-            >
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-2">
-                The SQL-Native AI Memory Fabric
-              </h1>
-              <p className="text-base md:text-lg text-zinc-400">
-                for JavaScript & TypeScript
-              </p>
-            </motion.div>
-            <motion.a
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.15 }}
-              href="https://memorilabs.ai"
+            <a href="/docs" className="flex items-center gap-2">
+              Get Started <ArrowRight className="w-4 h-4" />
+            </a>
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-10 px-6 text-sm font-medium rounded-full"
+            asChild
+          >
+            <a
+              href="https://github.com/shambhav15/memori-js"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 rounded-full border border-purple-500/20 text-[10px] font-mono text-purple-400 hover:bg-purple-500/20 transition-colors"
+              className="flex items-center gap-2"
             >
-              ✨ Inspired by memorilabs.ai Python library
-            </motion.a>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-sm text-zinc-400 max-w-lg leading-relaxed border-l-2 border-white/5 pl-4"
-          >
-            <span className="text-white font-medium">memori-js</span> is an{" "}
-            <span className="text-indigo-400">active memory layer</span> that
-            lives inside your application, automatically managing context for
-            your AI agents.
-            <span className="block mt-2 text-zinc-300 font-mono text-xs">
-              ZERO-CONFIG · TYPE-SAFE · LOCAL-FIRST
-            </span>
-          </motion.p>
-
-          {/* Metrics / Stats Row - Condensed */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-wrap gap-4 py-4 border-y border-white/5"
-          >
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-zinc-900/50 border border-white/5">
-              <Activity size={12} className="text-indigo-400" />
-              <div className="text-xs font-bold text-white">20ms LATENCY</div>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-zinc-900/50 border border-white/5">
-              <Database size={12} className="text-purple-400" />
-              <div className="text-xs font-bold text-white">SQLITE / PG</div>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-zinc-900/50 border border-white/5">
-              <Cpu size={12} className="text-emerald-400" />
-              <div className="text-xs font-bold text-white">NODE / BUN</div>
-            </div>
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center gap-4"
-          >
-            <div className="w-full sm:w-auto">
-              <CodeBlock
-                code="npm install memori-js"
-                language="bash"
-                variant="inline"
-                className="border-indigo-500/20 bg-zinc-900/80"
-              />
-            </div>
-
-            <Button
-              to="/docs"
-              size="sm"
-              className="font-mono text-xs h-9 px-6 bg-white text-black hover:bg-zinc-200 w-full sm:w-auto"
-            >
-              READ_DOCS <ArrowRight className="w-3 h-3 ml-2" />
-            </Button>
-          </motion.div>
+              <Github className="w-4 h-4" /> GitHub
+            </a>
+          </Button>
         </div>
 
-        {/* Right Column: Code Interface */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative"
-        >
-          {/* Decorative decorative lines */}
-          <div className="absolute -top-4 -left-4 w-8 h-8 border-t border-l border-indigo-500/50" />
-          <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b border-r border-indigo-500/50" />
-
-          <div className="rounded-lg border border-white/10 bg-black/80 backdrop-blur-xl shadow-2xl overflow-hidden font-mono text-xs">
-            <div className="flex items-center justify-between px-4 py-2 border-b border-white/10 bg-white/5">
-              <span className="text-zinc-500">core/agent.ts</span>
+        <div className="w-full max-w-3xl mt-12 text-left relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+          <div className="relative rounded-xl border bg-card/50 backdrop-blur-sm shadow-2xl overflow-hidden">
+            <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
               <div className="flex gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-zinc-700" />
-                <div className="w-2 h-2 rounded-full bg-zinc-700" />
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/50"></div>
               </div>
             </div>
-            <div className="p-6 overflow-x-auto text-zinc-300">
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">01</span>
-                <span className="text-purple-400">import</span> {"{"} Memori{" "}
-                {"}"} <span className="text-purple-400">from</span>{" "}
-                <span className="text-green-400">'memori-js'</span>;
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">02</span>
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">03</span>
-                <span className="text-zinc-500">
-                  // Initialize active memory layer
-                </span>
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">04</span>
-                <span className="text-purple-400">const</span> memori ={" "}
-                <span className="text-purple-400">new</span>{" "}
-                <span className="text-yellow-300">Memori</span>();
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">05</span>
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">06</span>
-                <span className="text-zinc-500">
-                  // Patch LLM client (OpenAI/Anthropic)
-                </span>
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">07</span>memori.llm.
-                <span className="text-blue-400">register</span>(client);
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">08</span>
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">09</span>
-                <span className="text-zinc-500">
-                  // Context is auto-injected
-                </span>
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">10</span>
-                <span className="text-purple-400">const</span> res ={" "}
-                <span className="text-purple-400">await</span>{" "}
-                client.chat.completions.
-                <span className="text-blue-400">create</span>({"{"}
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">11</span> messages: [{"{"}{" "}
-                role: <span className="text-green-400">'user'</span>, content:
-                query {"}"}]
-              </div>
-              <div className="flex">
-                <span className="text-zinc-600 mr-4">12</span>
-                {"}"});
-              </div>
-            </div>
+            <CodeBlock
+              code={`import { Memori } from "memori-js";
+import { OpenAI } from "openai";
+
+const memori = new Memori();
+const client = new OpenAI(process.env.OPENAI_API_KEY);
+
+// Auto-injects relevant context
+memori.llm.register(client);
+
+await client.chat.completions.create({
+  model: "gpt-4",
+  messages: [{ role: "user", content: "Remember this?" }]
+});`}
+              language="typescript"
+            />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
