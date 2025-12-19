@@ -10,14 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as ExamplesRouteImport } from './routes/examples'
 import { Route as DocsRouteImport } from './routes/docs'
-import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
 import { Route as DocsQuickstartRouteImport } from './routes/docs/quickstart'
 import { Route as DocsProvidersRouteImport } from './routes/docs/providers'
 import { Route as DocsInstallationRouteImport } from './routes/docs/installation'
 import { Route as DocsCoreConceptsRouteImport } from './routes/docs/core-concepts'
+import { Route as DocsCommunityRouteImport } from './routes/docs/community'
 import { Route as DocsApiReferenceRouteImport } from './routes/docs/api-reference'
 
 const PlaygroundRoute = PlaygroundRouteImport.update({
@@ -25,14 +26,14 @@ const PlaygroundRoute = PlaygroundRouteImport.update({
   path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExamplesRoute = ExamplesRouteImport.update({
+  id: '/examples',
+  path: '/examples',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CommunityRoute = CommunityRouteImport.update({
-  id: '/community',
-  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -65,6 +66,11 @@ const DocsCoreConceptsRoute = DocsCoreConceptsRouteImport.update({
   path: '/core-concepts',
   getParentRoute: () => DocsRoute,
 } as any)
+const DocsCommunityRoute = DocsCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => DocsRoute,
+} as any)
 const DocsApiReferenceRoute = DocsApiReferenceRouteImport.update({
   id: '/api-reference',
   path: '/api-reference',
@@ -73,10 +79,11 @@ const DocsApiReferenceRoute = DocsApiReferenceRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/community': typeof CommunityRoute
   '/docs': typeof DocsRouteWithChildren
+  '/examples': typeof ExamplesRoute
   '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
+  '/docs/community': typeof DocsCommunityRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
   '/docs/installation': typeof DocsInstallationRoute
   '/docs/providers': typeof DocsProvidersRoute
@@ -85,9 +92,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/community': typeof CommunityRoute
+  '/examples': typeof ExamplesRoute
   '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
+  '/docs/community': typeof DocsCommunityRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
   '/docs/installation': typeof DocsInstallationRoute
   '/docs/providers': typeof DocsProvidersRoute
@@ -97,10 +105,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/community': typeof CommunityRoute
   '/docs': typeof DocsRouteWithChildren
+  '/examples': typeof ExamplesRoute
   '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
+  '/docs/community': typeof DocsCommunityRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
   '/docs/installation': typeof DocsInstallationRoute
   '/docs/providers': typeof DocsProvidersRoute
@@ -111,10 +120,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/community'
     | '/docs'
+    | '/examples'
     | '/playground'
     | '/docs/api-reference'
+    | '/docs/community'
     | '/docs/core-concepts'
     | '/docs/installation'
     | '/docs/providers'
@@ -123,9 +133,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/community'
+    | '/examples'
     | '/playground'
     | '/docs/api-reference'
+    | '/docs/community'
     | '/docs/core-concepts'
     | '/docs/installation'
     | '/docs/providers'
@@ -134,10 +145,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/community'
     | '/docs'
+    | '/examples'
     | '/playground'
     | '/docs/api-reference'
+    | '/docs/community'
     | '/docs/core-concepts'
     | '/docs/installation'
     | '/docs/providers'
@@ -147,8 +159,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CommunityRoute: typeof CommunityRoute
   DocsRoute: typeof DocsRouteWithChildren
+  ExamplesRoute: typeof ExamplesRoute
   PlaygroundRoute: typeof PlaygroundRoute
 }
 
@@ -161,18 +173,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/examples': {
+      id: '/examples'
+      path: '/examples'
+      fullPath: '/examples'
+      preLoaderRoute: typeof ExamplesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs': {
       id: '/docs'
       path: '/docs'
       fullPath: '/docs'
       preLoaderRoute: typeof DocsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/community': {
-      id: '/community'
-      path: '/community'
-      fullPath: '/community'
-      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -217,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsCoreConceptsRouteImport
       parentRoute: typeof DocsRoute
     }
+    '/docs/community': {
+      id: '/docs/community'
+      path: '/community'
+      fullPath: '/docs/community'
+      preLoaderRoute: typeof DocsCommunityRouteImport
+      parentRoute: typeof DocsRoute
+    }
     '/docs/api-reference': {
       id: '/docs/api-reference'
       path: '/api-reference'
@@ -229,6 +248,7 @@ declare module '@tanstack/react-router' {
 
 interface DocsRouteChildren {
   DocsApiReferenceRoute: typeof DocsApiReferenceRoute
+  DocsCommunityRoute: typeof DocsCommunityRoute
   DocsCoreConceptsRoute: typeof DocsCoreConceptsRoute
   DocsInstallationRoute: typeof DocsInstallationRoute
   DocsProvidersRoute: typeof DocsProvidersRoute
@@ -238,6 +258,7 @@ interface DocsRouteChildren {
 
 const DocsRouteChildren: DocsRouteChildren = {
   DocsApiReferenceRoute: DocsApiReferenceRoute,
+  DocsCommunityRoute: DocsCommunityRoute,
   DocsCoreConceptsRoute: DocsCoreConceptsRoute,
   DocsInstallationRoute: DocsInstallationRoute,
   DocsProvidersRoute: DocsProvidersRoute,
@@ -249,8 +270,8 @@ const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CommunityRoute: CommunityRoute,
   DocsRoute: DocsRouteWithChildren,
+  ExamplesRoute: ExamplesRoute,
   PlaygroundRoute: PlaygroundRoute,
 }
 export const routeTree = rootRouteImport

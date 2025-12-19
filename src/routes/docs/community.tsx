@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Github, MessageSquare, Mail } from "lucide-react";
 
-export const Route = createFileRoute("/community")({
+export const Route = createFileRoute("/docs/community")({
   component: Community,
 });
 

@@ -9,17 +9,17 @@ export const Route = createFileRoute("/docs/providers")({
 function Providers() {
   return (
     <div className="max-w-3xl min-h-screen animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex items-center gap-2 mb-8">
+      <div className="flex items-center gap-2 mb-6">
         <span className="w-2 h-2 bg-primary rounded-full" />
-        <span className="text-xs font-mono text-primary uppercase tracking-wider">
+        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
           Providers
         </span>
       </div>
 
-      <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+      <h1 className="mb-4 text-lg font-bold tracking-tight text-foreground">
         LLM Providers
       </h1>
-      <p className="leading-7 text-xl text-muted-foreground mb-12">
+      <p className="mb-10 text-sm text-muted-foreground leading-relaxed">
         Memori works by "patching" your LLM client. It supports major providers
         out of the box.
       </p>
@@ -27,16 +27,16 @@ function Providers() {
       <div className="grid gap-10">
         {/* OpenAI */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-3xl font-semibold tracking-tight">OpenAI</h2>
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-sm font-bold text-foreground">OpenAI</h2>
             <Badge
               variant="outline"
-              className="text-green-500 border-green-500/20 bg-green-500/10"
+              className="text-[10px] h-5 px-1.5 border-green-500/20 text-green-500 bg-green-500/5"
             >
               Full Support
             </Badge>
           </div>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-sm text-muted-foreground mb-4">
             Supports automated context injection for both standard completions
             and structured outputs.
           </p>
@@ -55,16 +55,16 @@ memori.llm.register(client);`}
 
         {/* Anthropic */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-3xl font-semibold tracking-tight">Anthropic</h2>
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-sm font-bold text-foreground">Anthropic</h2>
             <Badge
               variant="outline"
-              className="text-green-500 border-green-500/20 bg-green-500/10"
+              className="text-[10px] h-5 px-1.5 border-green-500/20 text-green-500 bg-green-500/5"
             >
               Full Support
             </Badge>
           </div>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-sm text-muted-foreground mb-4">
             Works seamlessly with Claude 3 and newer models.
           </p>
           <CodeBlock
@@ -82,20 +82,23 @@ memori.llm.register(client);`}
 
         {/* Custom / Others */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-3xl font-semibold tracking-tight">
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-sm font-bold text-foreground">
               Custom / Vercel AI SDK
             </h2>
             <Badge
               variant="outline"
-              className="text-yellow-500 border-yellow-500/20 bg-yellow-500/10"
+              className="text-[10px] h-5 px-1.5 border-yellow-500/20 text-yellow-500 bg-yellow-500/5"
             >
               Beta
             </Badge>
           </div>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-sm text-muted-foreground mb-4">
             For other providers or the Vercel AI SDK, you can manually inject
-            context using the <code className="text-primary">retrieve</code>{" "}
+            context using the{" "}
+            <code className="text-xs bg-muted px-1 py-0.5 rounded border border-border/50 font-mono text-foreground">
+              retrieve
+            </code>{" "}
             API.
           </p>
           <CodeBlock

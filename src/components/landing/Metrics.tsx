@@ -1,36 +1,57 @@
-import { Star, Download, GitFork } from "lucide-react";
+import { Star, GitFork, Download } from "lucide-react";
 
 export function Metrics() {
   return (
-    <div className="w-full border-y border-border/50 bg-background/50 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-border/50">
-          <div className="flex flex-col items-center justify-center text-center px-4">
-            <div className="text-3xl font-bold font-mono mb-1">2.4k+</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-1">
-              <Star className="w-3 h-3" /> Stars
+    <section className="border-y border-border/40 bg-muted/20">
+      <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="flex flex-col items-center justify-center gap-2">
+            <div className="flex items-center gap-1.5 text-muted-foreground mb-1">
+              <Star className="w-4 h-4" />
+              <span className="text-xs font-mono uppercase tracking-wider">
+                GitHub Stars
+              </span>
             </div>
+            <span className="text-3xl font-bold tracking-tight text-foreground">
+              1.2k+
+            </span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-4">
-            <div className="text-3xl font-bold font-mono mb-1">15k+</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-1">
-              <Download className="w-3 h-3" /> Installs
+
+          <div className="flex flex-col items-center justify-center gap-2">
+            <div className="flex items-center gap-1.5 text-muted-foreground mb-1">
+              <Download className="w-4 h-4" />
+              <span className="text-xs font-mono uppercase tracking-wider">
+                Downloads/mo
+              </span>
             </div>
+            <span className="text-3xl font-bold tracking-tight text-foreground">
+              15k+
+            </span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-4">
-            <div className="text-3xl font-bold font-mono mb-1">99%</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider">
-              Test Coverage
+
+          <div className="flex flex-col items-center justify-center gap-2">
+            <div className="flex items-center gap-1.5 text-muted-foreground mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider">
+                Test Coverage
+              </span>
             </div>
+            <span className="text-3xl font-bold tracking-tight text-green-500">
+              98%
+            </span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-4">
-            <div className="text-3xl font-bold font-mono mb-1">0ms</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-wider">
-              Config Time
+
+          <div className="flex flex-col items-center justify-center gap-2">
+            <div className="flex items-center gap-1.5 text-muted-foreground mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider">
+                Context Time
+              </span>
             </div>
+            <span className="text-3xl font-bold tracking-tight text-foreground">
+              ~25ms
+            </span>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

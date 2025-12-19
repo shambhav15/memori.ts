@@ -40,8 +40,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-          <Header />
-          {children}
+          <div className="min-h-screen w-full bg-background font-sans antialiased text-foreground">
+            <Header />
+            <main className="flex-1 w-full">{children}</main>
+          </div>
         </ThemeProvider>
         <Scripts />
       </body>

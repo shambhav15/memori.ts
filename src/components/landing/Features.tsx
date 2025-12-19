@@ -1,95 +1,64 @@
-import { Brain, Zap, Box, Layout, Cpu, Database } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { Database, Zap, Shield, Globe, Cpu, Layers } from "lucide-react";
+
+const features = [
+  {
+    title: "SQL Native",
+    description:
+      "Built on standard SQL. Query your agent's memory using tools you already know and trust.",
+    icon: Database,
+    color: "text-blue-400",
+  },
+  {
+    title: "Zero Config",
+    description:
+      "Starts with local SQLite. No Docker containers or complex vector DB setups required to develop.",
+    icon: Zap,
+    color: "text-amber-400",
+  },
+  {
+    title: "Universal",
+    description:
+      "Works with OpenAI, Anthropic, and any other LLM provider via a simple middleware pattern.",
+    icon: Globe,
+    color: "text-purple-400",
+  },
+  {
+    title: "Local First",
+    description:
+      "Your data stays on your machine. Optional cloud sync only when you're ready to deploy.",
+    icon: Shield,
+    color: "text-green-400",
+  },
+];
 
 export function Features() {
-  const features = [
-    {
-      title: "Active Memory",
-      desc: "Automatically injects relevant conversation context into every LLM call.",
-      icon: Brain,
-      className: "md:col-span-2",
-    },
-    {
-      title: "Zero Config",
-      desc: "Starts instantly with local SQLite. No docker needed.",
-      icon: Zap,
-    },
-    {
-      title: "Provider Agnostic",
-      desc: "Works with OpenAI, Anthropic, DeepSeek, and custom LLMs.",
-      icon: Box,
-    },
-    {
-      title: "Auto Augmentation",
-      desc: "Patches your client seamlessly without changing business logic.",
-      icon: Layout,
-      className: "md:col-span-2",
-    },
-    {
-      title: "SQL Native",
-      desc: "Powered by vector extensions. Fast, reliable, and queryable.",
-      icon: Cpu,
-    },
-    {
-      title: "Cloud Ready",
-      desc: "Scale to Postgres/Supabase when you need production power.",
-      icon: Database,
-    },
-  ];
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-  };
-
   return (
-    <section className="container mx-auto px-4 py-24">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-          Core Capabilities
-        </h2>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Essential primitives for building stateful, long-term memory into your
-          agents.
-        </p>
-      </div>
-
-      <motion.div
-        className="grid md:grid-cols-3 gap-6 auto-rows-[minmax(180px,auto)]"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        {features.map((f, i) => (
-          <motion.div key={i} variants={item} className={f.className}>
-            <Card className="h-full flex flex-col justify-between border-primary/10 bg-card hover:bg-muted/50 transition-all duration-300 group">
-              <CardHeader>
-                <div className="mb-4 h-10 w-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition-transform">
-                  <f.icon className="h-5 w-5" />
-                </div>
-                <CardTitle className="text-xl">{f.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  {f.desc}
-                </p>
-              </CardContent>
-            </Card>
+    <section className="container mx-auto px-4 py-12 md:py-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {features.map((feature, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className="group relative overflow-hidden rounded-xl border border-border/50 bg-card/30 p-6 transition-all hover:bg-card/50 hover:shadow-lg hover:border-border/80"
+          >
+            <div
+              className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-muted/50 ${feature.color}`}
+            >
+              <feature.icon className="h-5 w-5" />
+            </div>
+            <h3 className="mb-2 text-base font-bold tracking-tight text-foreground">
+              {feature.title}
+            </h3>
+            <p className="text-sm leading-relaxed text-muted-foreground/90">
+              {feature.description}
+            </p>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

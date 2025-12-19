@@ -1,6 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { CodeBlock } from "../../components/ui/code-block";
-import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -11,25 +10,27 @@ export const Route = createFileRoute("/docs/quickstart")({
 function GettingStarted() {
   return (
     <div className="max-w-3xl min-h-screen animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex items-center gap-2 mb-8">
+      <div className="flex items-center gap-2 mb-6">
         <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-        <span className="text-xs font-mono text-primary uppercase tracking-wider">
+        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
           Quickstart
         </span>
       </div>
 
-      <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+      <h1 className="mb-4 text-lg font-bold tracking-tight text-foreground">
         Quickstart
       </h1>
-      <p className="leading-7 text-xl text-muted-foreground mb-12">
+      <p className="mb-10 text-sm text-muted-foreground leading-relaxed">
         Build a memory-augmented agent in 30 seconds.
       </p>
 
       {/* Step 1 */}
-      <div className="relative border-l-2 border-border/50 pl-8 pb-12 last:pb-0">
-        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary" />
-        <h3 className="text-xl font-semibold mb-4 -mt-1">1. Initialization</h3>
-        <p className="text-muted-foreground mb-6">
+      <div className="relative border-l-2 border-border/50 pl-6 pb-10 last:pb-0">
+        <div className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-border border border-background ring-4 ring-background" />
+        <h3 className="text-sm font-bold mb-2 text-foreground">
+          1. Initialization
+        </h3>
+        <p className="text-sm text-muted-foreground mb-4">
           Import Memori and your LLM client. Memori will default to using a
           local SQLite database in your project root.
         </p>
@@ -44,12 +45,17 @@ const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });`}
       </div>
 
       {/* Step 2 */}
-      <div className="relative border-l-2 border-border/50 pl-8 pb-12 last:pb-0">
-        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary" />
-        <h3 className="text-xl font-semibold mb-4 -mt-1">2. Registration</h3>
-        <p className="text-muted-foreground mb-6">
+      <div className="relative border-l-2 border-border/50 pl-6 pb-10 last:pb-0">
+        <div className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-border border border-background ring-4 ring-background" />
+        <h3 className="text-sm font-bold mb-2 text-foreground">
+          2. Registration
+        </h3>
+        <p className="text-sm text-muted-foreground mb-4">
           Connect the two clients. This registers a middleware that intercepts
-          calls to <code className="text-primary">chat.completions.create</code>
+          calls to{" "}
+          <code className="text-xs bg-muted px-1 py-0.5 rounded border border-border/50 font-mono text-foreground">
+            chat.completions.create
+          </code>
           .
         </p>
         <CodeBlock
@@ -60,10 +66,12 @@ memori.llm.register(client);`}
       </div>
 
       {/* Step 3 */}
-      <div className="relative border-l-2 border-border/50 pl-8 pb-12 last:pb-0">
-        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary" />
-        <h3 className="text-xl font-semibold mb-4 -mt-1">3. Interaction</h3>
-        <p className="text-muted-foreground mb-6">
+      <div className="relative border-l-2 border-border/50 pl-6 pb-10 last:pb-0">
+        <div className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-border border border-background ring-4 ring-background" />
+        <h3 className="text-sm font-bold mb-2 text-foreground">
+          3. Interaction
+        </h3>
+        <p className="text-sm text-muted-foreground mb-4">
           Chat normally. Memori silently searches for relevant past
           conversations and injects them into the system prompt.
         </p>
@@ -73,7 +81,6 @@ memori.llm.register(client);`}
   const response = await client.chat.completions.create({
     model: "gpt-4",
     messages: [
-      { role: "system", content: "You are a helpful assistant." },
       { role: "user", content: message }
     ]
   });
@@ -86,10 +93,10 @@ memori.llm.register(client);`}
         />
       </div>
 
-      <div className="mt-16 flex gap-4">
-        <Button asChild size="lg" className="rounded-full">
+      <div className="mt-12 flex gap-4">
+        <Button asChild size="sm" className="rounded-md h-9 text-xs">
           <Link to="/docs/core-concepts">
-            Explore Core Concepts <ArrowRight className="ml-2 w-4 h-4" />
+            Explore Core Concepts <ArrowRight className="ml-2 w-3 h-3" />
           </Link>
         </Button>
       </div>

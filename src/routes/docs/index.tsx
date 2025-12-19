@@ -9,52 +9,59 @@ export const Route = createFileRoute("/docs/")({
 function DocsIndex() {
   return (
     <div className="max-w-3xl min-h-screen animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex items-center gap-2 mb-8">
+      <div className="flex items-center gap-2 mb-6">
         <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/50 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
         </span>
-        <span className="text-xs font-mono text-primary uppercase tracking-wider">
-          Introduction
+        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
+          Documentation
         </span>
       </div>
 
-      <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl mb-6">
+      <h1 className="mb-4 text-lg font-bold tracking-tight text-foreground">
         Welcome to Memori
       </h1>
-      <p className="leading-relaxed text-xl text-muted-foreground mb-10">
+      <p className="mb-8 text-sm text-muted-foreground leading-relaxed">
         The SQL-native active context layer for AI agents. Give your agents
         long-term memory with a single line of code.
       </p>
 
-      <div className="flex gap-4 mb-16">
-        <Button asChild size="lg" className="rounded-full px-8">
+      <div className="flex gap-3 mb-12">
+        <Button
+          asChild
+          size="sm"
+          className="rounded-md px-4 h-8 text-xs font-medium"
+        >
           <Link to="/docs/quickstart">Start Building</Link>
         </Button>
         <Button
           asChild
           variant="outline"
-          size="lg"
-          className="rounded-full px-8 bg-background/50 backdrop-blur-sm"
+          size="sm"
+          className="rounded-md px-4 h-8 text-xs font-medium bg-background/50 backdrop-blur-sm"
         >
           <Link to="/docs/core-concepts">Learn Concepts</Link>
         </Button>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6 mb-16">
-        <Card className="bg-card/50 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-colors">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-2">Zero Config</h3>
-            <p className="text-sm text-muted-foreground">
+      <div className="grid md:grid-cols-2 gap-4 mb-12">
+        <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-sm">
+          <CardContent className="p-4">
+            <h3 className="text-sm font-bold mb-1.5 text-foreground">
+              Zero Config
+            </h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Starts with local SQLite. No Docker containers or complex vector
               DB setups required.
             </p>
           </CardContent>
         </Card>
-        <Card className="bg-card/50 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-colors">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-2">SQL Native</h3>
-            <p className="text-sm text-muted-foreground">
+        <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-sm">
+          <CardContent className="p-4">
+            <h3 className="text-sm font-bold mb-1.5 text-foreground">
+              SQL Native
+            </h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Built on standard SQL. Query your agent's memory using tools you
               already know.
             </p>
@@ -62,15 +69,14 @@ function DocsIndex() {
         </Card>
       </div>
 
-      <h2 className="text-3xl font-semibold tracking-tight mb-6">
-        Why Memori?
-      </h2>
-      <p className="leading-7 text-muted-foreground mb-6">
+      <h2 className="mb-3 text-sm font-bold text-foreground">Why Memori?</h2>
+      <p className="mb-4 text-sm text-muted-foreground leading-relaxed">
         Most memory libraries act as complex wrappers around vector stores,
         forcing you to manually manage embeddings, chunking, and retrieval.
       </p>
-      <p className="leading-7 text-muted-foreground mb-10">
-        Memori takes a different approach: <strong>Middleware</strong>. By
+      <p className="mb-8 text-sm text-muted-foreground leading-relaxed">
+        Memori takes a different approach:{" "}
+        <strong className="font-medium text-foreground">Middleware</strong>. By
         sitting between your code and the LLM, it can autonomously manage
         context without clogging your business logic.
       </p>
