@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Github, Package, Globe } from "lucide-react";
 import { Hero } from "../components/landing/Hero";
-import { WhyMemori } from "../components/landing/WhyMemori";
-import { SearchComparison } from "../components/landing/SearchComparison";
-import { ComparisonTable } from "../components/landing/ComparisonTable";
-import { ProviderShowcase } from "../components/landing/ProviderShowcase";
-import { PhilosophySection } from "../components/landing/PhilosophySection";
+import { HowItWorks } from "../components/landing/HowItWorks";
+import { Metrics } from "../components/landing/Metrics";
 import { Features } from "../components/landing/Features";
+import { PhilosophySection } from "../components/landing/PhilosophySection";
+// import { ProviderShowcase } from "../components/landing/ProviderShowcase"; // Keeping for posterity, maybe remove or move?
 import { Separator } from "@/components/ui/separator";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -14,37 +13,15 @@ export const Route = createFileRoute("/")({ component: Home });
 function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
-      {/* Hero Section */}
       <Hero />
 
-      {/* Main Content Stack */}
-      <div className="flex flex-col gap-24 pb-24">
-        {/* Why Memori - Pain Points & Solution */}
-        <WhyMemori />
+      <Metrics />
 
-        {/* Interactive Search Comparison */}
-        <div className="container mx-auto px-6">
-          <SearchComparison />
-        </div>
+      <Features />
 
-        {/* Comparison Table */}
-        <div className="bg-muted/30 py-24">
-          <ComparisonTable />
-        </div>
+      <HowItWorks />
 
-        {/* Features / Core Capabilities */}
-        <div className="container mx-auto px-6">
-          <Features />
-        </div>
-
-        {/* Provider Showcase */}
-        <div className="bg-muted/30 py-24">
-          <ProviderShowcase />
-        </div>
-
-        {/* Philosophy Section */}
-        <PhilosophySection />
-      </div>
+      <PhilosophySection />
 
       {/* Footer */}
       <footer className="border-t bg-card py-16">
@@ -54,7 +31,7 @@ function Home() {
             <div className="md:col-span-2 space-y-4">
               <div className="flex items-center gap-2">
                 <span className="text-2xl">🧠</span>
-                <span className="font-bold text-xl">memori-js</span>
+                <span className="font-bold text-xl">memori.ts</span>
               </div>
               <p className="text-muted-foreground max-w-sm leading-relaxed">
                 The SQL-Native AI Memory Fabric for JavaScript & TypeScript.

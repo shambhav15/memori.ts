@@ -73,26 +73,34 @@ export function CodeBlock({
 
   return (
     <div
-      className={`rounded-md bg-[#050505] border border-white/5 font-mono text-xs relative group overflow-hidden ${className}`}
+      className={`rounded-lg bg-[#0a0a0a] border border-border/40 font-mono text-sm relative group overflow-hidden ${className}`}
     >
-      <div className="flex items-center justify-between px-3 py-1.5 border-b border-white/5 bg-white/2">
-        <span className="text-[10px] text-zinc-600 font-bold uppercase">
-          {language}
-        </span>
+      <div className="flex items-center justify-between px-4 py-2 border-b border-border/40 bg-muted/20">
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1.5 opacity-50">
+            <div className="w-2.5 h-2.5 rounded-full bg-muted-foreground/30" />
+            <div className="w-2.5 h-2.5 rounded-full bg-muted-foreground/30" />
+            <div className="w-2.5 h-2.5 rounded-full bg-muted-foreground/30" />
+          </div>
+          <span className="text-[11px] text-muted-foreground font-semibold uppercase ml-2 tracking-wider">
+            {language}
+          </span>
+        </div>
+
         {copyButton}
       </div>
-      <div className="p-4 overflow-x-auto relative">
-        <pre className="text-zinc-300 text-[11px] leading-relaxed">
+      <div className="p-4 overflow-x-auto relative scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+        <pre className="text-gray-300 text-[13px] leading-7 font-ligatures-none">
           <code>
             {code.split("\n").map((line, i) => {
               // Simple syntax highlighting fix
               let content: React.ReactNode = line;
               if (line.trim().startsWith("//")) {
-                content = <span className="text-zinc-600">{line}</span>;
+                content = <span className="text-gray-500 italic">{line}</span>;
               } else {
                 // Process other keywords safely
                 const words = line.split(
-                  /(\b(?:const|let|var|function|import|export|from|await|new|class|return|npm|install|run|build|Memori|OpenAI|Anthropic)\b)/g
+                  /(\b(?:const|let|var|function|import|export|from|await|new|class|return|npm|install|run|build|Memori|OpenAI|Anthropic|interface|type)\b)/g
                 );
                 content = words.map((word, wIndex) => {
                   if (
@@ -108,21 +116,26 @@ export function CodeBlock({
                       "new",
                       "class",
                       "return",
-                      "npm",
-                      "install",
-                      "run",
-                      "build",
+                      "interface",
+                      "type",
                     ].includes(word)
                   ) {
                     return (
-                      <span key={wIndex} className="text-indigo-400">
+                      <span key={wIndex} className="text-purple-400">
+                        {word}
+                      </span>
+                    );
+                  }
+                  if (["npm", "install", "run", "build"].includes(word)) {
+                    return (
+                      <span key={wIndex} className="text-red-400">
                         {word}
                       </span>
                     );
                   }
                   if (["Memori", "OpenAI", "Anthropic"].includes(word)) {
                     return (
-                      <span key={wIndex} className="text-amber-200">
+                      <span key={wIndex} className="text-yellow-300">
                         {word}
                       </span>
                     );
@@ -134,11 +147,11 @@ export function CodeBlock({
               return (
                 <div key={i} className="table-row">
                   {showLineNumbers && (
-                    <span className="table-cell text-zinc-800 select-none text-right pr-4 w-6">
+                    <span className="table-cell text-gray-700 select-none text-right pr-4 w-8 border-r border-gray-800/50 mr-4">
                       {i + 1}
                     </span>
                   )}
-                  <span className="table-cell">{content}</span>
+                  <span className="table-cell pl-4">{content}</span>
                 </div>
               );
             })}

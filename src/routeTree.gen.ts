@@ -9,14 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
-import { Route as DocsGettingStartedRouteImport } from './routes/docs/getting-started'
+import { Route as DocsQuickstartRouteImport } from './routes/docs/quickstart'
+import { Route as DocsProvidersRouteImport } from './routes/docs/providers'
+import { Route as DocsInstallationRouteImport } from './routes/docs/installation'
 import { Route as DocsCoreConceptsRouteImport } from './routes/docs/core-concepts'
 import { Route as DocsApiReferenceRouteImport } from './routes/docs/api-reference'
 
+const PlaygroundRoute = PlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
@@ -37,9 +45,19 @@ const DocsIndexRoute = DocsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DocsRoute,
 } as any)
-const DocsGettingStartedRoute = DocsGettingStartedRouteImport.update({
-  id: '/getting-started',
-  path: '/getting-started',
+const DocsQuickstartRoute = DocsQuickstartRouteImport.update({
+  id: '/quickstart',
+  path: '/quickstart',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsProvidersRoute = DocsProvidersRouteImport.update({
+  id: '/providers',
+  path: '/providers',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsInstallationRoute = DocsInstallationRouteImport.update({
+  id: '/installation',
+  path: '/installation',
   getParentRoute: () => DocsRoute,
 } as any)
 const DocsCoreConceptsRoute = DocsCoreConceptsRouteImport.update({
@@ -57,17 +75,23 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/docs': typeof DocsRouteWithChildren
+  '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
-  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/installation': typeof DocsInstallationRoute
+  '/docs/providers': typeof DocsProvidersRoute
+  '/docs/quickstart': typeof DocsQuickstartRoute
   '/docs/': typeof DocsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
-  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/installation': typeof DocsInstallationRoute
+  '/docs/providers': typeof DocsProvidersRoute
+  '/docs/quickstart': typeof DocsQuickstartRoute
   '/docs': typeof DocsIndexRoute
 }
 export interface FileRoutesById {
@@ -75,9 +99,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/docs': typeof DocsRouteWithChildren
+  '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
-  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/installation': typeof DocsInstallationRoute
+  '/docs/providers': typeof DocsProvidersRoute
+  '/docs/quickstart': typeof DocsQuickstartRoute
   '/docs/': typeof DocsIndexRoute
 }
 export interface FileRouteTypes {
@@ -86,26 +113,35 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/docs'
+    | '/playground'
     | '/docs/api-reference'
     | '/docs/core-concepts'
-    | '/docs/getting-started'
+    | '/docs/installation'
+    | '/docs/providers'
+    | '/docs/quickstart'
     | '/docs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/community'
+    | '/playground'
     | '/docs/api-reference'
     | '/docs/core-concepts'
-    | '/docs/getting-started'
+    | '/docs/installation'
+    | '/docs/providers'
+    | '/docs/quickstart'
     | '/docs'
   id:
     | '__root__'
     | '/'
     | '/community'
     | '/docs'
+    | '/playground'
     | '/docs/api-reference'
     | '/docs/core-concepts'
-    | '/docs/getting-started'
+    | '/docs/installation'
+    | '/docs/providers'
+    | '/docs/quickstart'
     | '/docs/'
   fileRoutesById: FileRoutesById
 }
@@ -113,10 +149,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
   DocsRoute: typeof DocsRouteWithChildren
+  PlaygroundRoute: typeof PlaygroundRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs': {
       id: '/docs'
       path: '/docs'
@@ -145,11 +189,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsIndexRouteImport
       parentRoute: typeof DocsRoute
     }
-    '/docs/getting-started': {
-      id: '/docs/getting-started'
-      path: '/getting-started'
-      fullPath: '/docs/getting-started'
-      preLoaderRoute: typeof DocsGettingStartedRouteImport
+    '/docs/quickstart': {
+      id: '/docs/quickstart'
+      path: '/quickstart'
+      fullPath: '/docs/quickstart'
+      preLoaderRoute: typeof DocsQuickstartRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/providers': {
+      id: '/docs/providers'
+      path: '/providers'
+      fullPath: '/docs/providers'
+      preLoaderRoute: typeof DocsProvidersRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/installation': {
+      id: '/docs/installation'
+      path: '/installation'
+      fullPath: '/docs/installation'
+      preLoaderRoute: typeof DocsInstallationRouteImport
       parentRoute: typeof DocsRoute
     }
     '/docs/core-concepts': {
@@ -172,14 +230,18 @@ declare module '@tanstack/react-router' {
 interface DocsRouteChildren {
   DocsApiReferenceRoute: typeof DocsApiReferenceRoute
   DocsCoreConceptsRoute: typeof DocsCoreConceptsRoute
-  DocsGettingStartedRoute: typeof DocsGettingStartedRoute
+  DocsInstallationRoute: typeof DocsInstallationRoute
+  DocsProvidersRoute: typeof DocsProvidersRoute
+  DocsQuickstartRoute: typeof DocsQuickstartRoute
   DocsIndexRoute: typeof DocsIndexRoute
 }
 
 const DocsRouteChildren: DocsRouteChildren = {
   DocsApiReferenceRoute: DocsApiReferenceRoute,
   DocsCoreConceptsRoute: DocsCoreConceptsRoute,
-  DocsGettingStartedRoute: DocsGettingStartedRoute,
+  DocsInstallationRoute: DocsInstallationRoute,
+  DocsProvidersRoute: DocsProvidersRoute,
+  DocsQuickstartRoute: DocsQuickstartRoute,
   DocsIndexRoute: DocsIndexRoute,
 }
 
@@ -189,6 +251,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
   DocsRoute: DocsRouteWithChildren,
+  PlaygroundRoute: PlaygroundRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

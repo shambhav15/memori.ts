@@ -1,38 +1,87 @@
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight, Terminal } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { CodeBlock } from "../ui/code-block";
+import { motion } from "framer-motion";
 
 export function Hero() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
   return (
-    <section className="relative pt-20 pb-12 overflow-hidden">
+    <section className="relative pt-32 pb-20 overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/5 blur-[100px]"></div>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]">
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[400px] w-[400px] rounded-full bg-primary/10 blur-[120px] opacity-50"></div>
       </div>
 
-      <div className="container mx-auto px-4 flex flex-col items-center text-center gap-6">
-        <Badge
-          variant="secondary"
-          className="px-3 py-1 text-xs border border-primary/20 bg-primary/5 text-primary rounded-full hover:bg-primary/10 transition-colors"
+      <motion.div
+        className="container mx-auto px-4 flex flex-col items-center text-center gap-8"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
+        <motion.div variants={item}>
+          <Badge
+            variant="secondary"
+            className="px-4 py-1.5 text-sm border bg-secondary/50 backdrop-blur-sm text-foreground rounded-full hover:bg-secondary/80 transition-colors"
+          >
+            v1.0 is now available
+          </Badge>
+        </motion.div>
+
+        <motion.h1
+          variants={item}
+          className="max-w-4xl text-6xl md:text-8xl font-bold tracking-tight text-foreground"
         >
-          v1.0.57 Available
-        </Badge>
+          Memory for <br />
+          <span className="text-muted-foreground">AI Agents</span>
+        </motion.h1>
 
-        <h1 className="max-w-4xl text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70">
-          The Memory Layer for <br /> AI Agents
-        </h1>
+        <motion.p
+          variants={item}
+          className="max-w-xl text-xl text-muted-foreground leading-relaxed"
+        >
+          The SQL-native active context layer. Give your agents long-term memory
+          with a single line of code.
+        </motion.p>
 
-        <p className="max-w-xl text-lg text-muted-foreground leading-relaxed">
-          SQL-native active context management for your AI applications.{" "}
-          <br className="hidden sm:block" />
-          Long-term memory, made simple.
-        </p>
+        <motion.div
+          variants={item}
+          className="flex flex-col sm:flex-row gap-4 mt-4 w-full justify-center"
+        >
+          <div className="flex items-center gap-3 bg-muted/50 border rounded-full px-5 h-12 font-mono text-sm text-muted-foreground">
+            <span className="text-primary">npm</span> install memori-js
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 ml-2 rounded-full hover:bg-background/80"
+              onClick={() =>
+                navigator.clipboard.writeText("npm install memori-js")
+              }
+            >
+              <Terminal className="w-3 h-3" />
+            </Button>
+          </div>
+        </motion.div>
 
-        <div className="flex gap-4 mt-2">
+        <motion.div variants={item} className="flex gap-4 mt-2">
           <Button
             size="lg"
-            className="h-10 px-6 text-sm font-medium rounded-full"
+            className="h-12 px-8 text-base font-semibold rounded-full bg-foreground text-background hover:bg-foreground/90 transition-all active:scale-95"
             asChild
           >
             <a href="/docs" className="flex items-center gap-2">
@@ -42,49 +91,54 @@ export function Hero() {
           <Button
             size="lg"
             variant="outline"
-            className="h-10 px-6 text-sm font-medium rounded-full"
+            className="h-12 px-8 text-base font-medium rounded-full bg-background/50 backdrop-blur-sm hover:bg-background transition-all active:scale-95"
             asChild
           >
-            <a
-              href="https://github.com/shambhav15/memori-js"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
-            >
-              <Github className="w-4 h-4" /> GitHub
+            <a href="/playground" className="flex items-center gap-2">
+              Try Playground
             </a>
           </Button>
-        </div>
+        </motion.div>
 
-        <div className="w-full max-w-3xl mt-12 text-left relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-          <div className="relative rounded-xl border bg-card/50 backdrop-blur-sm shadow-2xl overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/50"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/50"></div>
+        <motion.div
+          variants={item}
+          className="w-full max-w-3xl mt-16 text-left relative group"
+        >
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-purple-500/30 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+          <div className="relative rounded-2xl border bg-card/80 backdrop-blur-xl shadow-2xl overflow-hidden ring-1 ring-white/10">
+            <div className="flex items-center justify-between px-4 py-3 border-b bg-muted/20">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
               </div>
+              <span className="text-xs text-muted-foreground font-mono">
+                agent.ts
+              </span>
             </div>
             <CodeBlock
               code={`import { Memori } from "memori-js";
 import { OpenAI } from "openai";
 
+// Initialize memory layer
 const memori = new Memori();
-const client = new OpenAI(process.env.OPENAI_API_KEY);
+const client = new OpenAI();
 
-// Auto-injects relevant context
+// Register the provider to auto-inject context
 memori.llm.register(client);
 
+// Chat normally - context is handled automatically
 await client.chat.completions.create({
   model: "gpt-4",
-  messages: [{ role: "user", content: "Remember this?" }]
+  messages: [
+    { role: "user", content: "What did we discuss yesterday?" }
+  ]
 });`}
               language="typescript"
             />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
