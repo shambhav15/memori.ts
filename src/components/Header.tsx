@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Github, BookOpen, Users } from "lucide-react";
 
+import { Menu, Github, BookOpen, Users } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import {
   Sheet,
@@ -19,21 +19,21 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
       <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
-        {/* Logo */}
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center gap-2">
-            <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 border border-indigo-500/20">
-              <span className="text-lg">🧠</span>
-            </div>
+            <img
+              src="/memori.svg"
+              alt="Logo"
+              className="h-8 w-16 opacity-75 dark:opacity-100 dark:invert"
+            />
             <span className="text-lg font-bold tracking-tight text-foreground font-sans">
               memori.ts
             </span>
           </Link>
         </div>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
@@ -58,7 +58,6 @@ export default function Header() {
           <ModeToggle />
         </nav>
 
-        {/* Mobile Nav */}
         <div className="md:hidden flex items-center gap-2">
           <ModeToggle />
           <Sheet>
