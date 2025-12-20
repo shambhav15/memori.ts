@@ -64,7 +64,7 @@ function DocsNav({
                   "flex items-center gap-3 py-2 rounded-lg text-sm transition-colors",
                   index === 0 ? "px-3" : "pl-8 pr-3",
                   pathname === item.url
-                    ? "bg-primary/10 text-primary font-medium"
+                    ? "bg-red-500/10 text-red-500 font-medium"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 )}
               >
@@ -112,7 +112,7 @@ export function MobileSidebar() {
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border/50">
+        <div className="flex items-center justify-between p-4 border-b border-border">
           <span className="font-bold text-sm">Menu</span>
           <button
             onClick={() => setIsOpen(false)}
@@ -139,7 +139,7 @@ export function MobileSidebar() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                       pathname === item.url
-                        ? "bg-primary/10 text-primary font-medium"
+                        ? "bg-red-500/10 text-red-500 font-medium"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     )}
                   >
@@ -156,7 +156,7 @@ export function MobileSidebar() {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-border/50">
+        <div className="p-4 border-t border-border">
           <a
             href="https://github.com/shambhav15/memori-js"
             target="_blank"
@@ -178,7 +178,7 @@ export function AppSidebar() {
   const pathname = location.pathname;
 
   return (
-    <aside className="hidden md:flex flex-col w-80 min-h-screen sticky top-0 border-r border-border/50 bg-background/95 backdrop-blur-sm">
+    <aside className="hidden md:flex flex-col w-80 min-h-screen sticky top-0 border-r border-border bg-background/95 backdrop-blur-sm">
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-6">
         {/* Application Section */}
@@ -194,7 +194,7 @@ export function AppSidebar() {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                     pathname === item.url
-                      ? "bg-primary/10 text-primary font-medium"
+                      ? "bg-red-500/10 text-red-500 font-medium"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
                 >
@@ -211,7 +211,7 @@ export function AppSidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-border/50">
+      <div className="p-4 border-t border-border">
         <a
           href="https://github.com/shambhav15/memori-js"
           target="_blank"

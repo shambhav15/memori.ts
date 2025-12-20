@@ -40,9 +40,27 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-          <div className="min-h-screen w-full bg-background font-sans antialiased text-foreground">
-            <Header />
-            <main className="flex-1 w-full">{children}</main>
+          <div className="relative min-h-screen w-full bg-background font-sans antialiased text-foreground overflow-x-hidden">
+            {/* Premium Background Glows */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+              <div
+                className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse"
+                style={{ animationDuration: "4s" }}
+              />
+              <div
+                className="absolute top-[20%] right-[-10%] w-[30%] h-[50%] bg-blue-500/10 rounded-full blur-[100px] animate-pulse"
+                style={{ animationDuration: "5s" }}
+              />
+              <div
+                className="absolute bottom-[-10%] left-[20%] w-[50%] h-[40%] bg-red-500/5 rounded-full blur-[150px] animate-pulse"
+                style={{ animationDuration: "6s" }}
+              />
+            </div>
+
+            <div className="relative z-10 flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-1 w-full">{children}</main>
+            </div>
           </div>
         </ThemeProvider>
         <Scripts />

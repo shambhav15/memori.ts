@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Github, Package, Globe } from "lucide-react";
 import { Hero } from "../components/landing/Hero";
-import { HowItWorks } from "../components/landing/HowItWorks";
-import { Metrics } from "../components/landing/Metrics";
 import { Features } from "../components/landing/Features";
-import { PhilosophySection } from "../components/landing/PhilosophySection";
-// import { ProviderShowcase } from "../components/landing/ProviderShowcase"; // Keeping for posterity, maybe remove or move?
+import { ComparisonTable } from "../components/landing/ComparisonTable";
+import { CodeTeaser } from "../components/landing/CodeTeaser";
+import { FlowDiagram } from "../components/landing/FlowDiagram";
 import { Separator } from "@/components/ui/separator";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -15,25 +14,26 @@ function Home() {
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <Hero />
 
-      <Metrics />
-
-      <Features />
-
-      <HowItWorks />
-
-      <PhilosophySection />
+      <div className="relative z-10 space-y-12 pb-16">
+        <CodeTeaser />
+        <ComparisonTable />
+        <Features />
+        <FlowDiagram />
+      </div>
 
       {/* Footer */}
-      <footer className="border-t bg-card py-16">
+      <footer className="border-t border-white/5 bg-black/40 backdrop-blur-xl py-16 relative z-10">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             {/* Brand */}
             <div className="md:col-span-2 space-y-4">
               <div className="flex items-center gap-2">
                 <span className="text-2xl">🧠</span>
-                <span className="font-bold text-xl">memori.ts</span>
+                <span className="font-bold text-xl tracking-tight">
+                  memori.ts
+                </span>
               </div>
-              <p className="text-muted-foreground max-w-sm leading-relaxed">
+              <p className="text-muted-foreground/80 max-w-sm leading-relaxed text-sm">
                 The SQL-Native AI Memory Fabric for JavaScript & TypeScript.
                 Building the long-term memory layer for the next generation of
                 AI agents.
@@ -42,12 +42,14 @@ function Home() {
 
             {/* Resources */}
             <div className="space-y-4">
-              <h4 className="font-semibold tracking-tight">Resources</h4>
-              <ul className="space-y-3 text-sm text-muted-foreground">
+              <h4 className="font-bold text-sm tracking-wider uppercase text-foreground/80">
+                Resources
+              </h4>
+              <ul className="space-y-3 text-sm text-muted-foreground/80">
                 <li>
                   <a
                     href="/docs"
-                    className="hover:text-foreground transition-colors"
+                    className="hover:text-primary transition-colors"
                   >
                     Documentation
                   </a>
@@ -57,7 +59,7 @@ function Home() {
                     href="https://github.com/shambhav15/memori-js"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
+                    className="hover:text-primary transition-colors"
                   >
                     GitHub Repository
                   </a>
@@ -67,7 +69,7 @@ function Home() {
                     href="https://www.npmjs.com/package/memori-js"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
+                    className="hover:text-primary transition-colors"
                   >
                     NPM Package
                   </a>
@@ -77,12 +79,14 @@ function Home() {
 
             {/* Community */}
             <div className="space-y-4">
-              <h4 className="font-semibold tracking-tight">Community</h4>
-              <ul className="space-y-3 text-sm text-muted-foreground">
+              <h4 className="font-bold text-sm tracking-wider uppercase text-foreground/80">
+                Community
+              </h4>
+              <ul className="space-y-3 text-sm text-muted-foreground/80">
                 <li>
                   <a
                     href="/community"
-                    className="hover:text-foreground transition-colors"
+                    className="hover:text-primary transition-colors"
                   >
                     Join Community
                   </a>
@@ -92,7 +96,7 @@ function Home() {
                     href="https://memorilabs.ai"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
+                    className="hover:text-primary transition-colors"
                   >
                     memorilabs.ai
                   </a>
@@ -101,11 +105,11 @@ function Home() {
             </div>
           </div>
 
-          <Separator className="mb-8" />
+          <Separator className="mb-8 opacity-10" />
 
           {/* Bottom Bar */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-            <div>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+            <div className="flex items-center gap-1">
               &copy; {new Date().getFullYear()} Memori.ts Contributors. Released
               under MIT License.
             </div>

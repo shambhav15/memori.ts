@@ -1,59 +1,73 @@
 import { motion } from "framer-motion";
-import { Database, Zap, Shield, Globe, Cpu, Layers } from "lucide-react";
+import { Database, Zap, Globe, Cloud } from "lucide-react";
 
 const features = [
   {
     title: "SQL Native",
     description:
-      "Built on standard SQL. Query your agent's memory using tools you already know and trust.",
+      "Query your agent's memory using standard SQL. No learning curve, just powerful relational queries.",
     icon: Database,
-    color: "text-blue-400",
+    color: "from-blue-500/20 to-blue-600/20 text-blue-400",
+    border: "group-hover:border-blue-500/50",
   },
   {
     title: "Zero Config",
     description:
-      "Starts with local SQLite. No Docker containers or complex vector DB setups required to develop.",
+      "Start coding instantly. No Docker, no API keys, no complex vector DB infrastructure to manage.",
     icon: Zap,
-    color: "text-amber-400",
+    color: "from-amber-500/20 to-amber-600/20 text-amber-400",
+    border: "group-hover:border-amber-500/50",
   },
   {
-    title: "Universal",
+    title: "Universal LLM Support",
     description:
-      "Works with OpenAI, Anthropic, and any other LLM provider via a simple middleware pattern.",
+      "Works with OpenAI, Anthropic, Gemini, and local LLMs via a simple, unified adapter interface.",
     icon: Globe,
-    color: "text-purple-400",
+    color: "from-purple-500/20 to-purple-600/20 text-purple-400",
+    border: "group-hover:border-purple-500/50",
   },
   {
-    title: "Local First",
+    title: "Local-First + Cloud Sync",
     description:
-      "Your data stays on your machine. Optional cloud sync only when you're ready to deploy.",
-    icon: Shield,
-    color: "text-green-400",
+      "Data lives on your device by default for max privacy. Sync to the cloud only when you need it.",
+    icon: Cloud,
+    color: "from-green-500/20 to-green-600/20 text-green-400",
+    border: "group-hover:border-green-500/50",
   },
 ];
 
 export function Features() {
   return (
-    <section className="container mx-auto px-4 py-12 md:py-24">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <section className="container mx-auto px-4 py-16">
+      <div className="text-center mb-12">
+        <h2 className="text-2xl md:text-4xl font-black mb-4">
+          Everything you need. <br />
+          <span className="text-muted-foreground">Nothing you don't.</span>
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {features.map((feature, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="group relative overflow-hidden rounded-xl border border-border/50 bg-card/30 p-6 transition-all hover:bg-card/50 hover:shadow-lg hover:border-border/80"
+            className={`group relative overflow-hidden rounded-2xl border border-border/40 bg-card/20 p-8 transition-all hover:bg-card/40 hover:shadow-2xl hover:-translate-y-1 ${feature.border}`}
           >
+            <div className="absolute inset-0 bg-linear-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-overlay" />
+
             <div
-              className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-muted/50 ${feature.color}`}
+              className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-linear-to-br ${feature.color} border border-white/5 shadow-inner`}
             >
-              <feature.icon className="h-5 w-5" />
+              <feature.icon className="h-7 w-7" />
             </div>
-            <h3 className="mb-2 text-base font-bold tracking-tight text-foreground">
+
+            <h3 className="mb-3 text-xl font-bold tracking-tight text-foreground">
               {feature.title}
             </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground/90">
+
+            <p className="text-sm leading-relaxed text-muted-foreground/80 font-medium">
               {feature.description}
             </p>
           </motion.div>

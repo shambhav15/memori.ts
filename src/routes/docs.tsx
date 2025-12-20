@@ -8,18 +8,23 @@ export const Route = createFileRoute("/docs")({
 
 function DocsLayout() {
   return (
-    <div className="flex w-full min-h-[calc(100vh-3.5rem)]">
+    <div className="relative flex w-full min-h-[calc(100vh-3.5rem)] overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-500/10 rounded-full blur-[120px] animate-pulse duration-3000" />
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]" />
+      </div>
       {/* Sidebar - only visible on docs pages */}
       <AppSidebar />
 
-      <main className="flex-1 w-full min-w-0 py-8 lg:py-10 px-6 md:px-8">
+      <main className="relative z-10 flex-1 w-full min-w-0 py-8 lg:py-10 px-6 md:px-8">
         <div className="mx-auto max-w-3xl lg:mr-auto lg:ml-0 xl:mx-auto">
           <Outlet />
         </div>
       </main>
 
       {/* Right Rail - Table of Contents */}
-      <aside className="hidden xl:block w-64 shrink-0 border-l border-border/50 py-8 px-6 lg:py-10">
+      <aside className="relative z-10 hidden xl:block w-64 shrink-0 border-l border-border py-8 px-6 lg:py-10">
         <div className="sticky top-20">
           <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
             On this page
@@ -44,7 +49,7 @@ function DocsLayout() {
               Configuration
             </a>
           </div>
-          <div className="mt-8 pt-8 border-t border-border/50">
+          <div className="mt-8 pt-8 border-t border-border">
             <Button
               variant="outline"
               size="sm"

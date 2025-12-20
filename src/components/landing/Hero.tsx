@@ -1,114 +1,106 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { Button } from "../ui/button";
-import { Copy, Terminal, ArrowRight } from "lucide-react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { CodeBlock } from "../ui/code-block";
+import { ArrowRight, Zap } from "lucide-react";
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.2,
+      delayChildren: 0.1,
     },
   },
 };
 
-const item = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+const item: Variants = {
+  hidden: { opacity: 0, y: 15, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: "circOut", // Standard easing to avoid TS tuple issues
+    },
+  },
 };
 
 export function Hero() {
-  const [copied, setCopied] = useState(false);
-  const installCommand = "npm install memori-js"; // Keeping it simple per prompt
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(installCommand);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <section className="relative pt-16 pb-24 lg:pt-32 lg:pb-32 overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-24 lg:py-32">
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-500/10 rounded-full blur-[120px] animate-pulse duration-3000" />
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]" />
+      </div>
+
       <motion.div
-        className="container mx-auto px-4 flex flex-col items-center text-center gap-8 max-w-4xl"
+        className="container relative z-10 mx-auto px-4 flex flex-col items-center text-center gap-10 max-w-5xl"
         variants={container}
         initial="hidden"
         animate="show"
       >
         <motion.div
           variants={item}
-          className="flex flex-col items-center gap-4"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/50 border border-border/40 backdrop-blur-md shadow-sm mb-2"
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground/90 font-display">
-            Memori is a fast all-in-one <br className="hidden sm:block" /> AI
-            memory toolkit
-          </h1>
-          <p className="text-xl text-muted-foreground/80 max-w-2xl leading-relaxed">
-            The SQL-native active context layer for your AI agents.{" "}
-            <br className="hidden sm:block" /> Give them long-term memory with a
-            single line of code.
-          </p>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+          </span>
+          <span className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
+            v1.0.61 is live
+          </span>
         </motion.div>
 
-        <motion.div variants={item} className="w-full max-w-md mx-auto mt-4">
-          <div className="flex items-center gap-2 p-1.5 bg-muted/40 border border-border/50 rounded-xl backdrop-blur-sm group hover:border-border/80 transition-colors">
-            <div className="pl-3 pr-2 text-muted-foreground">
-              <span className="text-primary font-bold mr-2">$</span>
-            </div>
-            <input
-              type="text"
-              readOnly
-              value={installCommand}
-              className="bg-transparent border-none focus:ring-0 text-sm font-mono text-foreground w-full p-0"
-            />
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={handleCopy}
-              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground shrink-0"
-            >
-              {copied ? (
-                <span className="text-[10px] font-bold text-green-500">OK</span>
-              ) : (
-                <Copy className="w-3.5 h-3.5" />
-              )}
-            </Button>
-          </div>
-          <div className="flex justify-center gap-4 mt-3 text-[10px] text-muted-foreground font-mono opacity-60">
-            <span>npm</span>
-            <span>pnpm</span>
-            <span>yarn</span>
-            <span>bun</span>
-          </div>
-        </motion.div>
+        <motion.h1
+          variants={item}
+          className="text-3xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-br from-foreground via-foreground to-foreground/50 leading-[0.95] text-balance"
+        >
+          Give your AI <br />
+          <span className="text-foreground">Unforgettable Memory.</span>
+        </motion.h1>
+
+        <motion.p
+          variants={item}
+          className="text-base md:text-lg text-muted-foreground/90 max-w-2xl text-balance font-light leading-relaxed"
+        >
+          The missing SQL-native layer for intelligent agents.{" "}
+          <br className="hidden md:block" /> No vector DB complexity. Just pure
+          recall.
+        </motion.p>
 
         <motion.div
           variants={item}
-          className="flex flex-wrap items-center justify-center gap-4 pt-4"
+          className="flex flex-col sm:flex-row items-center gap-4 mt-6 w-full sm:w-auto"
         >
           <Button
+            asChild
             size="lg"
-            className="h-10 px-6 rounded-lg text-sm font-bold bg-foreground text-background hover:bg-foreground/90"
+            className="h-12 px-8 rounded-full text-base font-bold bg-foreground text-background hover:bg-foreground/90 transition-all hover:scale-105 shadow-xl shadow-foreground/10 group"
           >
-            <Link to="/docs/quickstart">Get started</Link>
+            <Link to="/docs/quickstart">
+              Start Building
+              <Zap className="ml-2 w-4 h-4 group-hover:fill-current" />
+            </Link>
           </Button>
           <Button
             variant="outline"
             size="lg"
-            className="h-10 px-6 rounded-lg text-sm font-medium border-border/50 bg-background/50 backdrop-blur-sm hover:bg-muted/50"
+            className="h-12 px-8 rounded-full text-base font-medium border-foreground/10 bg-background/50 backdrop-blur-xl hover:bg-background/80 transition-all hover:scale-105 group"
+            onClick={() => {
+              document
+                .getElementById("comparison-section")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
           >
-            <Link to="/playground">Try Playground</Link>
+            Compare vs Others
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </motion.div>
       </motion.div>
-
-      {/* Background decoration inspired by Bun */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10 mix-blend-screen" />
     </section>
   );
 }

@@ -10,7 +10,7 @@ export default function Header() {
   const isDocsPage = location.pathname.startsWith("/docs");
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
       <div className="flex h-14 items-center gap-4 px-4 sm:px-6 max-w-6xl mx-auto">
         {/* Mobile menu trigger - only on docs pages */}
         {isDocsPage && <MobileSidebar />}
@@ -34,12 +34,6 @@ export default function Header() {
           </div>
           <div className="w-px h-4 bg-border/50 hidden sm:block mx-1" />
           <ThemeToggle />
-          <Button
-            size="sm"
-            className="hidden sm:inline-flex h-8 rounded-lg text-xs font-bold px-4"
-          >
-            Get Started
-          </Button>
         </div>
       </div>
     </header>
