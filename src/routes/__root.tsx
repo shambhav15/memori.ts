@@ -1,7 +1,24 @@
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Link,
+  Scripts,
+  createRootRoute,
+} from "@tanstack/react-router";
 import Header from "../components/Header";
 import appCss from "../styles.css?url";
 import { ThemeProvider } from "@/provider/theme-provider";
+
+function NotFound() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1>404</h1>
+      <p>Page Not Found</p>
+      <Link to="/" className="text-primary text-xs hover:underline">
+        Go back home
+      </Link>
+    </div>
+  );
+}
 
 export const Route = createRootRoute({
   head: () => ({
@@ -30,6 +47,7 @@ export const Route = createRootRoute({
   }),
 
   shellComponent: RootDocument,
+  notFoundComponent: NotFound,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

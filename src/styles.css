@@ -138,10 +138,7 @@
     @apply text-sm text-gray-800 dark:text-gray-200 font-medium;
   }
   p {
-    @apply text-sm text-gray-800 dark:text-gray-200;
-  }
-  .bold-heading {
-    @apply text-sm text-gray-800 dark:text-gray-200 font-bold;
+    @apply text-xs text-gray-800 dark:text-gray-200;
   }
 }
 

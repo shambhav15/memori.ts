@@ -18,8 +18,8 @@ import { cn } from "@/lib/utils";
 // Navigation items
 const navItems = [
   { title: "Home", url: "/", icon: Home },
-  { title: "Playground", url: "/playground", icon: Terminal },
-  { title: "Examples", url: "/examples", icon: LayoutGrid },
+  { title: "Playground", url: "/docs/playground", icon: Terminal },
+  { title: "Examples", url: "/docs/examples", icon: LayoutGrid },
 ];
 
 const docsItems = [

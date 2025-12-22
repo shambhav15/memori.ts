@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-export const Route = createFileRoute("/examples")({
+export const Route = createFileRoute("/docs/examples")({
   component: Examples,
 });
 

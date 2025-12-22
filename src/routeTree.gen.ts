@@ -9,28 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PlaygroundRouteImport } from './routes/playground'
-import { Route as ExamplesRouteImport } from './routes/examples'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
 import { Route as DocsQuickstartRouteImport } from './routes/docs/quickstart'
 import { Route as DocsProvidersRouteImport } from './routes/docs/providers'
+import { Route as DocsPlaygroundRouteImport } from './routes/docs/playground'
 import { Route as DocsInstallationRouteImport } from './routes/docs/installation'
+import { Route as DocsExamplesRouteImport } from './routes/docs/examples'
 import { Route as DocsCoreConceptsRouteImport } from './routes/docs/core-concepts'
 import { Route as DocsCommunityRouteImport } from './routes/docs/community'
 import { Route as DocsApiReferenceRouteImport } from './routes/docs/api-reference'
 
-const PlaygroundRoute = PlaygroundRouteImport.update({
-  id: '/playground',
-  path: '/playground',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExamplesRoute = ExamplesRouteImport.update({
-  id: '/examples',
-  path: '/examples',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
@@ -56,9 +46,19 @@ const DocsProvidersRoute = DocsProvidersRouteImport.update({
   path: '/providers',
   getParentRoute: () => DocsRoute,
 } as any)
+const DocsPlaygroundRoute = DocsPlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
+  getParentRoute: () => DocsRoute,
+} as any)
 const DocsInstallationRoute = DocsInstallationRouteImport.update({
   id: '/installation',
   path: '/installation',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsExamplesRoute = DocsExamplesRouteImport.update({
+  id: '/examples',
+  path: '/examples',
   getParentRoute: () => DocsRoute,
 } as any)
 const DocsCoreConceptsRoute = DocsCoreConceptsRouteImport.update({
@@ -80,24 +80,24 @@ const DocsApiReferenceRoute = DocsApiReferenceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/docs': typeof DocsRouteWithChildren
-  '/examples': typeof ExamplesRoute
-  '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/community': typeof DocsCommunityRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
+  '/docs/examples': typeof DocsExamplesRoute
   '/docs/installation': typeof DocsInstallationRoute
+  '/docs/playground': typeof DocsPlaygroundRoute
   '/docs/providers': typeof DocsProvidersRoute
   '/docs/quickstart': typeof DocsQuickstartRoute
   '/docs/': typeof DocsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/examples': typeof ExamplesRoute
-  '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/community': typeof DocsCommunityRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
+  '/docs/examples': typeof DocsExamplesRoute
   '/docs/installation': typeof DocsInstallationRoute
+  '/docs/playground': typeof DocsPlaygroundRoute
   '/docs/providers': typeof DocsProvidersRoute
   '/docs/quickstart': typeof DocsQuickstartRoute
   '/docs': typeof DocsIndexRoute
@@ -106,12 +106,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/docs': typeof DocsRouteWithChildren
-  '/examples': typeof ExamplesRoute
-  '/playground': typeof PlaygroundRoute
   '/docs/api-reference': typeof DocsApiReferenceRoute
   '/docs/community': typeof DocsCommunityRoute
   '/docs/core-concepts': typeof DocsCoreConceptsRoute
+  '/docs/examples': typeof DocsExamplesRoute
   '/docs/installation': typeof DocsInstallationRoute
+  '/docs/playground': typeof DocsPlaygroundRoute
   '/docs/providers': typeof DocsProvidersRoute
   '/docs/quickstart': typeof DocsQuickstartRoute
   '/docs/': typeof DocsIndexRoute
@@ -121,24 +121,24 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/docs'
-    | '/examples'
-    | '/playground'
     | '/docs/api-reference'
     | '/docs/community'
     | '/docs/core-concepts'
+    | '/docs/examples'
     | '/docs/installation'
+    | '/docs/playground'
     | '/docs/providers'
     | '/docs/quickstart'
     | '/docs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/examples'
-    | '/playground'
     | '/docs/api-reference'
     | '/docs/community'
     | '/docs/core-concepts'
+    | '/docs/examples'
     | '/docs/installation'
+    | '/docs/playground'
     | '/docs/providers'
     | '/docs/quickstart'
     | '/docs'
@@ -146,12 +146,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/docs'
-    | '/examples'
-    | '/playground'
     | '/docs/api-reference'
     | '/docs/community'
     | '/docs/core-concepts'
+    | '/docs/examples'
     | '/docs/installation'
+    | '/docs/playground'
     | '/docs/providers'
     | '/docs/quickstart'
     | '/docs/'
@@ -160,26 +160,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DocsRoute: typeof DocsRouteWithChildren
-  ExamplesRoute: typeof ExamplesRoute
-  PlaygroundRoute: typeof PlaygroundRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/playground': {
-      id: '/playground'
-      path: '/playground'
-      fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/examples': {
-      id: '/examples'
-      path: '/examples'
-      fullPath: '/examples'
-      preLoaderRoute: typeof ExamplesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/docs': {
       id: '/docs'
       path: '/docs'
@@ -215,11 +199,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsProvidersRouteImport
       parentRoute: typeof DocsRoute
     }
+    '/docs/playground': {
+      id: '/docs/playground'
+      path: '/playground'
+      fullPath: '/docs/playground'
+      preLoaderRoute: typeof DocsPlaygroundRouteImport
+      parentRoute: typeof DocsRoute
+    }
     '/docs/installation': {
       id: '/docs/installation'
       path: '/installation'
       fullPath: '/docs/installation'
       preLoaderRoute: typeof DocsInstallationRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/examples': {
+      id: '/docs/examples'
+      path: '/examples'
+      fullPath: '/docs/examples'
+      preLoaderRoute: typeof DocsExamplesRouteImport
       parentRoute: typeof DocsRoute
     }
     '/docs/core-concepts': {
@@ -250,7 +248,9 @@ interface DocsRouteChildren {
   DocsApiReferenceRoute: typeof DocsApiReferenceRoute
   DocsCommunityRoute: typeof DocsCommunityRoute
   DocsCoreConceptsRoute: typeof DocsCoreConceptsRoute
+  DocsExamplesRoute: typeof DocsExamplesRoute
   DocsInstallationRoute: typeof DocsInstallationRoute
+  DocsPlaygroundRoute: typeof DocsPlaygroundRoute
   DocsProvidersRoute: typeof DocsProvidersRoute
   DocsQuickstartRoute: typeof DocsQuickstartRoute
   DocsIndexRoute: typeof DocsIndexRoute
@@ -260,7 +260,9 @@ const DocsRouteChildren: DocsRouteChildren = {
   DocsApiReferenceRoute: DocsApiReferenceRoute,
   DocsCommunityRoute: DocsCommunityRoute,
   DocsCoreConceptsRoute: DocsCoreConceptsRoute,
+  DocsExamplesRoute: DocsExamplesRoute,
   DocsInstallationRoute: DocsInstallationRoute,
+  DocsPlaygroundRoute: DocsPlaygroundRoute,
   DocsProvidersRoute: DocsProvidersRoute,
   DocsQuickstartRoute: DocsQuickstartRoute,
   DocsIndexRoute: DocsIndexRoute,
@@ -271,8 +273,6 @@ const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DocsRoute: DocsRouteWithChildren,
-  ExamplesRoute: ExamplesRoute,
-  PlaygroundRoute: PlaygroundRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
