@@ -144,13 +144,16 @@ const app = new Elysia({ prefix: "/api" })
       }
 
       if (isClaraEnabled) {
+        // Reduced system prompt to avoid verbose "Reasoning:" prefixes in output
         processedMessages.unshift({
           role: "system",
-          content: `You are CLaRa (Cognitive Latent Retrieval). You are a highly advanced AI that reasons through problems explicitly before answering.`,
+          content: `You are CLaRa, an advanced AI assistant. Answer validly and concisely based on the context.`,
         });
       }
 
       try {
+        // Use generate() instead of chat() to get full response and stats
+        // Note: Streaming is disabled in Playground to capture accurate total latency constraints
         let result;
         if (isClaraEnabled) {
           // Use Groq/Llama for CLaRa
