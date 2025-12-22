@@ -26,7 +26,7 @@ function DocsLayout() {
       <main
         className={cn(
           "relative z-10 flex-1 w-full min-w-0 transition-all",
-          isFullWidth ? "p-0" : "py-8 lg:py-10 px-6 md:px-8"
+          isFullWidth ? "p-0" : "py-6 lg:py-8 px-4 md:px-6" // Reduced from py-8/10 px-6/8
         )}
       >
         <div
@@ -41,7 +41,7 @@ function DocsLayout() {
 
       {/* Right Rail - Table of Contents */}
       {!isFullWidth && (
-        <aside className="relative z-10 hidden xl:block w-64 shrink-0 border-l border-border py-8 px-6 lg:py-10">
+        <aside className="relative z-10 hidden xl:block w-64 shrink-0 border-l border-border py-6 px-4 lg:py-8">
           <div className="sticky top-20">
             <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
               On this page

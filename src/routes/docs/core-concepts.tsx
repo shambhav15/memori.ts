@@ -15,16 +15,16 @@ function CoreConcepts() {
         </span>
       </div>
 
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+      <h1 className="scroll-m-20 font-extrabold tracking-tight mb-6">
         How it Works
       </h1>
-      <p className="leading-7 text-xl text-muted-foreground mb-12">
+      <p className="leading-7 text-muted-foreground mb-12">
         Understand the primitives that power Memori's active state management.
       </p>
 
       {/* Concept 1 */}
       <section className="mb-14">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight mb-6">
+        <h2 className="scroll-m-20 border-b pb-2 font-semibold tracking-tight mb-6">
           1. Active Memory Layer
         </h2>
         <p className="leading-7 text-muted-foreground mb-6">
@@ -50,7 +50,7 @@ function CoreConcepts() {
 
       {/* Concept 2 */}
       <section className="mb-14">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight mb-6">
+        <h2 className="scroll-m-20 border-b pb-2 font-semibold tracking-tight mb-6">
           2. Auto-Augmentation
         </h2>
         <p className="leading-7 text-muted-foreground mb-8">
@@ -68,9 +68,7 @@ function CoreConcepts() {
               1
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-1">
-                Retrieval (Pre-flight)
-              </h3>
+              <h3 className="font-semibold mb-1">Retrieval (Pre-flight)</h3>
               <p className="text-muted-foreground">
                 The user's prompt is embedded and compared against the local
                 vector index. Relevant memories are found.
@@ -82,7 +80,7 @@ function CoreConcepts() {
               2
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-1">Injection</h3>
+              <h3 className="font-semibold mb-1">Injection</h3>
               <p className="text-muted-foreground">
                 Context is inserted into the system message, invisible to the
                 end user but visible to the model.
@@ -94,9 +92,7 @@ function CoreConcepts() {
               3
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-1">
-                Storage (Post-flight)
-              </h3>
+              <h3 className="font-semibold mb-1">Storage (Post-flight)</h3>
               <p className="text-muted-foreground">
                 The resulting conversation turn is saved, embedded, and indexed
                 for future reference.
@@ -108,7 +104,7 @@ function CoreConcepts() {
 
       {/* Concept 3 */}
       <section className="mb-14">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight mb-6">
+        <h2 className="scroll-m-20 border-b pb-2 font-semibold tracking-tight mb-6">
           3. Attribution & Scoping
         </h2>
         <p className="leading-7 text-muted-foreground mb-6">

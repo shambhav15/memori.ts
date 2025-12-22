@@ -7,8 +7,8 @@ export type SearchItem = {
 export const searchIndex: SearchItem[] = [
   // Pages
   { title: "Home", href: "/", category: "Pages" },
-  { title: "Playground", href: "/playground", category: "Pages" },
-  { title: "Examples", href: "/examples", category: "Pages" },
+  { title: "Playground", href: "/docs/playground", category: "Pages" },
+  { title: "Examples", href: "/docs/examples", category: "Pages" },
 
   // Documentation
   { title: "Documentation Home", href: "/docs", category: "Documentation" },

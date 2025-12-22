@@ -21,15 +21,15 @@ export function WhyMemori() {
   ];
 
   return (
-    <section className="container mx-auto px-4 py-16">
-      <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+    <section className="container-factory py-16 border-t border-border">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
         {/* The Problem */}
         <div className="space-y-6 flex flex-col justify-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight mb-3">
-              The Problem
+            <h2 className="font-bold tracking-tight mb-3">
+              The Pain of Vector DBs
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               Building memory for AI agents usually requires glueing together
               multiple complex systems.
             </p>
@@ -54,16 +54,10 @@ export function WhyMemori() {
 
         {/* The Solution */}
         <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-linear-to-r from-emerald-500/20 to-cyan-500/20 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
           <Card className="relative h-full border-emerald-500/20 bg-card/80 backdrop-blur-xl overflow-hidden">
-            <CardHeader className="pb-2 border-b border-emerald-500/10 bg-emerald-500/5">
-              <CardTitle className="flex items-center gap-2 text-base font-medium text-emerald-500">
-                <Sparkles className="w-4 h-4" />
-                The Solution: Zero Config
-              </CardTitle>
-            </CardHeader>
             <CardContent className="p-6 space-y-6">
-              <p className="text-muted-foreground text-lg">
+              <p className="text-muted-foreground">
                 Memori.ts abstracts the entire RAG pipeline into a single line
                 of code.
               </p>

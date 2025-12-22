@@ -5,7 +5,7 @@ import { Features } from "../components/landing/Features";
 import { ComparisonTable } from "../components/landing/ComparisonTable";
 import { CodeTeaser } from "../components/landing/CodeTeaser";
 import { FlowDiagram } from "../components/landing/FlowDiagram";
-import { Separator } from "@/components/ui/separator";
+import { WhyMemori } from "@/components/landing/WhyMemori";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -14,42 +14,50 @@ function Home() {
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <Hero />
 
-      <div className="relative z-10 space-y-12 pb-16">
+      <div className="relative z-10 space-y-0 pb-0">
         <CodeTeaser />
+        <WhyMemori />
         <ComparisonTable />
         <Features />
         <FlowDiagram />
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 bg-black/40 backdrop-blur-xl py-16 relative z-10">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12 mb-16">
-            {/* Brand */}
-            <div className="md:col-span-2 space-y-4">
+      {/* Footer - Factory Style */}
+      <footer className="border-t border-border bg-background py-12">
+        <div className="container-factory">
+          <div className="grid md:grid-cols-4 gap-12 lg:gap-24 mb-10">
+            {/* Brand Column */}
+            <div className="md:col-span-2 space-y-6">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">🧠</span>
-                <span className="font-bold text-xl tracking-tight">
+                <div className="w-8 h-8 bg-foreground text-background flex items-center justify-center font-bold text-lg rounded-sm">
+                  M
+                </div>
+                <span className="font-bold text-xl tracking-tighter">
                   memori.ts
                 </span>
               </div>
-              <p className="text-muted-foreground/80 max-w-sm leading-relaxed text-sm">
-                The SQL-Native AI Memory Fabric for JavaScript & TypeScript.
-                Building the long-term memory layer for the next generation of
-                AI agents.
+              <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
+                The SQL-Native AI Memory Fabric. <br />
+                Engineered for the next generation of intelligent agents.
               </p>
+
+              <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground pt-4">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                SYSTEM STATUS: OPERATIONAL
+              </div>
             </div>
 
             {/* Resources */}
-            <div className="space-y-4">
-              <h4 className="font-bold text-sm tracking-wider uppercase text-foreground/80">
+            <div className="space-y-6">
+              <h4 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 Resources
               </h4>
-              <ul className="space-y-3 text-sm text-muted-foreground/80">
+              <ul className="space-y-4 text-sm font-medium">
                 <li>
                   <a
                     href="/docs"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-accent transition-colors"
                   >
                     Documentation
                   </a>
@@ -57,9 +65,7 @@ function Home() {
                 <li>
                   <a
                     href="https://github.com/shambhav15/memori-js"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-accent transition-colors"
                   >
                     GitHub Repository
                   </a>
@@ -67,9 +73,7 @@ function Home() {
                 <li>
                   <a
                     href="https://www.npmjs.com/package/memori-js"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-accent transition-colors"
                   >
                     NPM Package
                   </a>
@@ -78,65 +82,63 @@ function Home() {
             </div>
 
             {/* Community */}
-            <div className="space-y-4">
-              <h4 className="font-bold text-sm tracking-wider uppercase text-foreground/80">
-                Community
+            <div className="space-y-6">
+              <h4 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                Connect
               </h4>
-              <ul className="space-y-3 text-sm text-muted-foreground/80">
+              <ul className="space-y-4 text-sm font-medium">
                 <li>
                   <a
                     href="/community"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-accent transition-colors"
                   >
-                    Join Community
+                    Community
                   </a>
                 </li>
                 <li>
                   <a
                     href="https://memorilabs.ai"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-accent transition-colors"
                   >
-                    memorilabs.ai
+                    Memorilabs.ai
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://twitter.com/memori_ts"
+                    className="hover:text-accent transition-colors"
+                  >
+                    Twitter / X
                   </a>
                 </li>
               </ul>
             </div>
           </div>
 
-          <Separator className="mb-8 opacity-10" />
-
           {/* Bottom Bar */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
-            <div className="flex items-center gap-1">
-              &copy; {new Date().getFullYear()} Memori.ts Contributors. Released
-              under MIT License.
+          <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-xs text-muted-foreground font-mono">
+              © {new Date().getFullYear()} MEMORI.TS INC. ALL RIGHTS RESERVED.
             </div>
+
             <div className="flex items-center gap-6">
               <a
                 href="https://github.com/shambhav15/memori-js"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Github className="h-4 w-4" />
+                <Github className="w-5 h-5" />
               </a>
               <a
                 href="https://www.npmjs.com/package/memori-js"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Package className="h-4 w-4" />
+                <Package className="w-5 h-5" />
               </a>
               <a
                 href="https://memorilabs.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Globe className="h-4 w-4" />
+                <Globe className="w-5 h-5" />
               </a>
             </div>
           </div>
