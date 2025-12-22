@@ -56,3 +56,7 @@ pnpm-error.log*
 *.sqlite3
 cache/
 tmp/
+
+memori.db
+memori.db-wal
+memori.db-shm

@@ -54,7 +54,7 @@ export function ComparisonTable() {
           {/* Section Header */}
           {/* Section Header */}
           <div className="space-y-6">
-            <h2 className="font-normal tracking-tighter leading-none">
+            <h2 className="text-2xl font-normal tracking-tighter leading-none">
               Why settle for <br />
               complexity?
             </h2>

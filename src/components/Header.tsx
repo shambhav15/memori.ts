@@ -10,13 +10,13 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur-md supports-backdrop-filter:bg-background/60">
-      <div className="flex h-14 items-center gap-4 px-4 sm:px-6 max-w-[1220px] mx-auto">
+      <div className="flex h-20 items-center gap-4 px-4 sm:px-6 max-w-[1220px] mx-auto">
         {/* Mobile menu trigger - only on docs pages */}
         {isDocsPage && <MobileSidebar />}
 
         {/* Logo with brand name - Factory.ai style */}
         <Link to="/" className="flex items-center gap-2 group">
-          <Memori className="h-5 w-auto transition-transform group-hover:scale-105" />
+          <Memori className="h-8 w-auto transition-transform group-hover:scale-105" />
           <span className="text-mono text-foreground hidden sm:inline">
             memori
           </span>

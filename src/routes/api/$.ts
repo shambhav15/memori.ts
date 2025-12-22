@@ -1,10 +1,9 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { Memori } from "memori-js";
 import { GoogleGenAI } from "@google/genai";
 import Groq from "groq-sdk";
-
-const PORT = 3001;
 
 // Helper to use Groq for CLaRa operations (Compression/Reasoning)
 const groqGenerator = async (prompt: string) => {
@@ -14,6 +13,7 @@ const groqGenerator = async (prompt: string) => {
     );
     return "";
   }
+  
   const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
   try {
     const completion = await groq.chat.completions.create({
@@ -27,16 +27,15 @@ const groqGenerator = async (prompt: string) => {
   }
 };
 
-const app = new Elysia()
+const app = new Elysia({ prefix: "/api" })
   .use(cors())
   .post(
-    "/api/chat",
+    "/chat",
     async ({ body }) => {
       const {
         message,
         history,
         isClaraEnabled,
-        contextFile,
         sessionId = "playground-session",
       } = body;
       const startTime = performance.now();
@@ -117,7 +116,7 @@ const app = new Elysia()
               : 0),
           reasoningTrace: isClaraEnabled
             ? [
-                `Optimized Query: "${memori.stats?.lastRun?.usedQuery || "N/A"}"`,
+                `Optimized Query: "${(memori.stats?.lastRun as any)?.usedQuery || "N/A"}"`,
                 `Identified ${memori.stats?.lastRun?.contextChunks || 0} relevant memory fragments`,
                 `Synthesized context for Gemini 1.5 Pro`,
               ]
@@ -155,7 +154,7 @@ const app = new Elysia()
     }
   )
   .post(
-    "/api/ingest",
+    "/ingest",
     async ({ body }) => {
       const {
         content,
@@ -229,9 +228,15 @@ const app = new Elysia()
         sessionId: t.Optional(t.String()),
       }),
     }
-  )
-  .listen(PORT);
+  );
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+const handle = ({ request }: { request: Request }) => app.fetch(request);
+
+export const Route = createFileRoute("/api/$")({
+  server: {
+    handlers: {
+      GET: handle,
+      POST: handle,
+    },
+  },
+});

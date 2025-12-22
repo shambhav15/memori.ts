@@ -155,7 +155,7 @@ function Playground() {
 
     try {
       const [resStandard, resClara] = await Promise.all([
-        fetch("http://localhost:3001/api/ingest", {
+        fetch("/api/ingest", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -165,7 +165,7 @@ function Playground() {
             sessionId: "playground-standard",
           }),
         }),
-        fetch("http://localhost:3001/api/ingest", {
+        fetch("/api/ingest", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -210,7 +210,7 @@ function Playground() {
 
     try {
       const [resStandard, resClara] = await Promise.all([
-        fetch("http://localhost:3001/api/chat", {
+        fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -221,7 +221,7 @@ function Playground() {
             contextFile,
           }),
         }),
-        fetch("http://localhost:3001/api/chat", {
+        fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
