@@ -1,117 +1,70 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
+// import { useChat, fetchServerSentEvents } from "@tanstack/ai-react";
 import {
   Send,
   Database,
   Sparkles,
   Trash2,
-  FileText,
-  Upload,
-  Eye,
   Loader2,
   Activity,
-  BarChart3,
-  Zap,
-  ArrowRightLeft,
   BrainCircuit,
-  Settings2,
   RefreshCw,
-  Play,
   CheckCircle2,
-  AlertCircle,
   Cpu,
   Save,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { motion, AnimatePresence } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { usePlaygroundState } from "@/hooks/usePlaygroundState";
 
 export const Route = createFileRoute("/docs/playground")({
   component: Playground,
 });
 
-const SAMPLE_CONTEXT = `[PROJECT CHIMERA: INTERNAL MEMO]
-CONFIDENTIALITY LEVEL: HIGH
-
-1. PROJECT OVERVIEW
-Project Chimera is a next-generation automated cat toy utilizing AI to predict feline pounce patterns.
-Goal: Increase localized engagement by 400% in domestic shorthairs.
-Launch Date: November 1st (National Cat Day).
-
-2. TECHNICAL STACK
-- Backend: Go (Transitioned from Python for latency).
-- Frontend: React Native (Mobile App).
-- Hardware: ESP32 Controller with Laser Module (Class 2).
-
-3. KEY PERSONNEL
-- Sarah (CEO): Focused on Series B funding ($5M secured from CapitalOne Ventures).
-- Mike (CTO): Handling server migration and hardware latency (Target < 100ms).
-- Emily (Product): Managing UI/UX and Marketing (TabbyTammy influencer campaign).
-- David (Intern): General assistance (accidentally locked AWS keys, password reset to 'BlueSky$99').
-
-4. KNOWN ISSUES
-- Laser pointer latency is currently 500ms (Unacceptable).
-- "Bark Detection" module needs calibration; false positives with loud sneezes.
-- User testing revealed 'Dark Mode' toggle is hard to find.
-
-5. COMPETITOR INTELLIGENCE
-- "DogGo" is rumored to be launching a smart collar. Source: r/Startups.
-- Counter-strategy: Release "Bark Detection" as a USP (Unique Selling Point).
-
-6. BUDGET
-- Burn rate: $50k/month.
-- Marketing: $12k wasted on billboard; pivoting to influencer equity deals (2% offered to TabbyTammy).
-- Cost cutting: Office closing Dec 1st; switching to fully remote to save $8k/month.
-
-[END MEMO]`;
-
 function Playground() {
-  // State
-  const [messagesStandard, setMessagesStandard] = useState<any[]>([
-    { role: "assistant", content: "Ready to query Standard Index." },
-  ]);
-  const [messagesClara, setMessagesClara] = useState<any[]>([
-    { role: "assistant", content: "Ready to query CLaRa Engine." },
-  ]);
-
-  const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [statsStandard, setStatsStandard] = useState<{
-    latencyMs: number;
-    originalSize: number;
-  } | null>(null);
-  const [statsClara, setStatsClara] = useState<{
-    latencyMs: number;
-    compressedSize: number;
-  } | null>(null);
-
-  // Context State
-  const [contextContent, setContextContent] = useState(SAMPLE_CONTEXT);
-  const [lastIngestedContent, setLastIngestedContent] = useState<string | null>(
-    null
-  );
-  const [isIngesting, setIsIngesting] = useState(false);
-  const [ingestionStatus, setIngestionStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
+  const {
+    messagesStandard, // Renamed back from initialStandard for clarity
+    setMessagesStandard,
+    messagesClara, // Renamed back from initialClara for clarity
+    setMessagesClara,
+    input,
+    setInput,
+    isLoading, // Uncommented - used from global state now
+    setIsLoading,
+    statsStandard,
+    setStatsStandard,
+    statsClara,
+    setStatsClara,
+    contextContent,
+    setContextContent,
+    lastIngestedContent,
+    setLastIngestedContent,
+    isIngesting,
+    setIsIngesting,
+    ingestionStatus,
+    setIngestionStatus,
+    resetToSample,
+    clearHistory,
+  } = usePlaygroundState();
 
   const isDirty = contextContent !== lastIngestedContent;
+
+  // Removed useChat hooks and sync effects - state is now managed manually via handleSend
 
   const handleIngest = async () => {
     if (!contextContent.trim()) return;
@@ -121,7 +74,6 @@ function Playground() {
     setStatsClara(null);
 
     try {
-      // Simulate/Real Ingest Call
       const [resStandard, resClara] = await Promise.all([
         fetch("/api/ingest", {
           method: "POST",
@@ -154,14 +106,19 @@ function Playground() {
       setLastIngestedContent(contextContent);
       setIngestionStatus("success");
 
-      // Reset chats on new ingest
+      // Reset chats
       setMessagesStandard([
-        { role: "assistant", content: "Context updated. Ready for queries." },
+        {
+          role: "assistant",
+          content: "Context updated. Ready for queries.",
+          id: "init-1",
+        },
       ]);
       setMessagesClara([
         {
           role: "assistant",
           content: "Knowledge graph updated. Ready for reasoning.",
+          id: "init-2",
         },
       ]);
     } catch (e) {
@@ -175,7 +132,6 @@ function Playground() {
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
     if (ingestionStatus !== "success" && !lastIngestedContent) {
-      // Prompt user to ingest first if they haven't
       alert("Please ingest the context first!");
       return;
     }
@@ -184,9 +140,18 @@ function Playground() {
     setInput("");
     setIsLoading(true);
 
-    const userMsg = { role: "user", content: userContent };
-    setMessagesStandard((prev) => [...prev, userMsg]);
-    setMessagesClara((prev) => [...prev, userMsg]);
+    const userMsg = {
+      role: "user",
+      content: userContent,
+      id: Date.now().toString(),
+    };
+
+    // Optimistic update
+    const newHistoryStandard = [...messagesStandard, userMsg];
+    const newHistoryClara = [...messagesClara, userMsg];
+
+    setMessagesStandard(newHistoryStandard);
+    setMessagesClara(newHistoryClara);
 
     try {
       const [resStandard, resClara] = await Promise.all([
@@ -194,8 +159,7 @@ function Playground() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            message: userContent,
-            history: messagesStandard,
+            messages: newHistoryStandard,
             isClaraEnabled: false,
             sessionId: "playground-standard",
             contextFile: { name: "context", content: lastIngestedContent },
@@ -205,8 +169,7 @@ function Playground() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            message: userContent,
-            history: messagesClara,
+            messages: newHistoryClara,
             isClaraEnabled: true,
             sessionId: "playground-clara",
             contextFile: { name: "context", content: lastIngestedContent },
@@ -223,6 +186,7 @@ function Playground() {
           role: "assistant",
           content: dataStandard.response,
           analysis: dataStandard.analysis,
+          id: (Date.now() + 1).toString(),
         },
       ]);
 
@@ -232,10 +196,11 @@ function Playground() {
           role: "assistant",
           content: dataClara.response,
           analysis: dataClara.analysis,
+          id: (Date.now() + 2).toString(),
         },
       ]);
-    } catch (error) {
-      console.error("Chat failed", error);
+    } catch (e) {
+      console.error("Chat failed", e);
     } finally {
       setIsLoading(false);
     }
@@ -256,116 +221,126 @@ function Playground() {
         </div>
 
         <div className="flex-1 flex flex-col p-6 gap-6 overflow-y-auto">
-          {/* Step 1: Context */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold uppercase tracking-wider text-foreground">
-                1. Knowledge Base
-              </label>
-              <div className="flex gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6"
-                  onClick={() => setContextContent(SAMPLE_CONTEXT)}
-                  title="Reset to Sample"
-                >
-                  <RefreshCw className="w-3.5 h-3.5" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative group">
-              <Textarea
-                placeholder="Paste your context data here..."
-                className="min-h-[300px] font-mono text-xs resize-none bg-background focus:ring-primary/20"
-                value={contextContent}
-                onChange={(e) => setContextContent(e.target.value)}
-              />
-              <div className="absolute bottom-2 right-2 text-[10px] text-muted-foreground bg-background/80 px-2 py-1 rounded border">
-                {contextContent.length} chars
-              </div>
-            </div>
-
-            <Button
-              className={cn(
-                "w-full transition-all duration-300",
-                ingestionStatus === "success" && !isDirty
-                  ? "bg-green-600 hover:bg-green-700"
-                  : ""
-              )}
-              onClick={handleIngest}
-              disabled={isIngesting || !contextContent.trim()}
-            >
-              {isIngesting ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Ingesting Knowledge...
-                </>
-              ) : ingestionStatus === "success" && !isDirty ? (
-                <>
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Memory Synced
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4 mr-2" />
-                  {lastIngestedContent ? "Update Memory" : "Ingest Memory"}
-                </>
-              )}
-            </Button>
-
-            {/* Ingest Stats Mini-Card */}
-            {statsStandard && statsClara && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                className="rounded-lg border border-border bg-background p-3 space-y-2 text-xs"
-              >
-                <div className="flex justify-between items-center text-muted-foreground">
-                  <span>Compression Ratio</span>
-                  <span className="font-mono text-green-500 font-bold">
-                    {(
-                      (statsClara.compressedSize / statsStandard.originalSize) *
-                      100
-                    ).toFixed(1)}
-                    %
-                  </span>
-                </div>
-                <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="knowledge-base"
+            className="w-full"
+          >
+            <AccordionItem value="knowledge-base" className="border-b-0">
+              <AccordionTrigger className="text-sm font-semibold uppercase tracking-wider text-foreground hover:no-underline py-2">
+                <div className="flex items-center justify-between w-full">
+                  <span>1. Knowledge Base</span>
                   <div
-                    className="bg-green-500 h-full rounded-full"
-                    style={{
-                      width: `${(statsClara.compressedSize / statsStandard.originalSize) * 100}%`,
-                    }}
+                    className="flex gap-2 mr-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6"
+                      onClick={resetToSample}
+                      title="Reset to Sample"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="space-y-3 pt-2">
+                <div className="relative group">
+                  <Textarea
+                    placeholder="Paste your context data here..."
+                    className="min-h-[300px] font-mono text-xs resize-none bg-background focus:ring-primary/20"
+                    value={contextContent}
+                    onChange={(e) => setContextContent(e.target.value)}
                   />
+                  <div className="absolute bottom-2 right-2 text-[10px] text-muted-foreground bg-background/80 px-2 py-1 rounded border">
+                    {contextContent.length} chars
+                  </div>
                 </div>
-                <div className="flex justify-between text-[10px] text-muted-foreground pt-1">
-                  <span>Standard: {statsStandard.originalSize}b</span>
-                  <span>CLaRa: {statsClara.compressedSize}b</span>
+
+                <Button
+                  className={cn(
+                    "w-full transition-all duration-300",
+                    ingestionStatus === "success" && !isDirty
+                      ? "bg-green-600 hover:bg-green-700"
+                      : ""
+                  )}
+                  onClick={handleIngest}
+                  disabled={isIngesting || !contextContent.trim()}
+                >
+                  {isIngesting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Ingesting Knowledge...
+                    </>
+                  ) : ingestionStatus === "success" && !isDirty ? (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      Memory Synced
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4 mr-2" />
+                      {lastIngestedContent ? "Update Memory" : "Ingest Memory"}
+                    </>
+                  )}
+                </Button>
+
+                {/* Ingest Stats Mini-Card */}
+                {statsStandard && statsClara && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="rounded-lg border border-border bg-background p-3 space-y-2 text-xs"
+                  >
+                    <div className="flex justify-between items-center text-muted-foreground">
+                      <span>Compression Ratio</span>
+                      <span className="font-mono text-green-500 font-bold">
+                        {(
+                          (statsClara.compressedSize /
+                            statsStandard.originalSize) *
+                          100
+                        ).toFixed(1)}
+                        %
+                      </span>
+                    </div>
+                    <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
+                      <div
+                        className="bg-green-500 h-full rounded-full"
+                        style={{
+                          width: `${(statsClara.compressedSize / statsStandard.originalSize) * 100}%`,
+                        }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-[10px] text-muted-foreground pt-1">
+                      <span>Standard: {statsStandard.originalSize}b</span>
+                      <span>CLaRa: {statsClara.compressedSize}b</span>
+                    </div>
+                  </motion.div>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="settings" className="border-b-0">
+              <AccordionTrigger className="text-sm font-semibold uppercase tracking-wider text-foreground hover:no-underline py-2">
+                2. Query Settings
+              </AccordionTrigger>
+              <AccordionContent className="pt-2">
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="p-2 border rounded bg-background flex flex-col gap-1">
+                    <span className="text-muted-foreground">Model</span>
+                    <span className="font-medium">Gemini 1.5 Flash</span>
+                  </div>
+                  <div className="p-2 border rounded bg-background flex flex-col gap-1">
+                    <span className="text-muted-foreground">Temperature</span>
+                    <span className="font-medium">0.7</span>
+                  </div>
                 </div>
-              </motion.div>
-            )}
-          </div>
-
-          <div className="h-px bg-border/50" />
-
-          {/* Step 2: Settings (Visual Only for now) */}
-          <div className="space-y-3 opacity-60 hover:opacity-100 transition-opacity">
-            <label className="text-sm font-semibold uppercase tracking-wider text-foreground">
-              2. Query Settings
-            </label>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="p-2 border rounded bg-background flex flex-col gap-1">
-                <span className="text-muted-foreground">Model</span>
-                <span className="font-medium">Gemini 1.5 Flash</span>
-              </div>
-              <div className="p-2 border rounded bg-background flex flex-col gap-1">
-                <span className="text-muted-foreground">Temperature</span>
-                <span className="font-medium">0.7</span>
-              </div>
-            </div>
-          </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
 
@@ -389,12 +364,7 @@ function Playground() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => {
-                setMessagesStandard([]);
-                setMessagesClara([]);
-                setStatsStandard(null);
-                setStatsClara(null);
-              }}
+              onClick={clearHistory}
               className="text-xs h-8"
             >
               <Trash2 className="w-3.5 h-3.5 mr-2 text-muted-foreground" />
@@ -549,7 +519,14 @@ function ChatPane({
                     : "bg-background border border-border rounded-bl-none"
                 )}
               >
-                {msg.content}
+                {msg.content
+                  ? msg.content
+                  : msg.parts?.map((part: any, i: number) => {
+                      if (part.type === "text") {
+                        return <span key={i}>{part.content}</span>;
+                      }
+                      return null;
+                    })}
               </div>
 
               {/* Analysis Footers for Assistant */}
