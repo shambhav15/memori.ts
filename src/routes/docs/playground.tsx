@@ -13,6 +13,14 @@ import {
   BarChart3,
   Zap,
   ArrowRightLeft,
+  BrainCircuit,
+  Settings2,
+  RefreshCw,
+  Play,
+  CheckCircle2,
+  AlertCircle,
+  Cpu,
+  Save,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -22,145 +30,105 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/docs/playground")({
   component: Playground,
 });
 
-const LONG_CONVERSATION = `[TRANSCRIPT: STARTUP WEEKLY SYNC - "PROJECT CHIMERA"]
-[Attendees: Sarah (CEO), Mike (CTO), Emily (Product), David (Intern)]
+const SAMPLE_CONTEXT = `[PROJECT CHIMERA: INTERNAL MEMO]
+CONFIDENTIALITY LEVEL: HIGH
 
-Sarah: Alright everyone, let's get started. Big week ahead.
-Mike: Can we make this quick? I've got the server migration at 2 PM.
-Emily: I still haven't received the updated slide deck for the investor pitch.
-David: Uh, I think I sent that? Let me check my sent folder... wait, no, it's in drafts.
-Sarah: David, please get that out by end of day. It's critical.
-Mike: Speaking of critical, did anyone touch the AWS keys? My access was denied this morning.
-Emily: Not me. I was working on the Figma prototypes all night.
-David: I might have tried to log in to check the logs? I guessed the password a few times.
-Mike: David! You triggered the security lockout. The new admin password is 'BlueSky$99'—and don't type it in wrong again.
-Sarah: Write that down securely, David. We can't afford verify-code delays. 
-Emily: Moving on—user testing results are in for the 'Dark Mode' feature.
-Sarah: And?
-Emily: Mixed. 40% of users couldn't find the toggle. It's hidden under 'Advanced Settings'.
-Mike: That was a backend decision. The legacy codebase breaks if we move it to the main header.
-Sarah: We need to fix that. Project Chimera depends on a sleek UI.
-David: What actually *is* Project Chimera? I just started last week.
-Sarah: It's our pivot to AI-driven cat toys. But that's top secret.
-Mike: Like, seriously David. If this leaks, we lose the Series B funding from 'CapitalOne Ventures'.
-Emily: Did we secure that funding? I thought they were on the fence.
-Sarah: They signed the term sheet yesterday. $5M at a $20M valuation.
-David: Wow. That buys a lot of catnip.
-Mike: Focus, people. The API latency on the laser pointer controller is 500ms. It needs to be under 100ms.
-Emily: Maybe we switch from Python to Go?
-Mike: START OVER in Go? Are you insane? We launch in 3 weeks.
-Sarah: What if we just cache the movement patterns?
-Mike: Hmmm. Maybe. Memcached implementation would take 2 days.
-Emily: I can update the roadmap. So, launch date is still October 15th?
-Sarah: No, we pushed it to November 1st to align with 'National Cat Day'.
-David: My cat's birthday is November 3rd!
-Mike: Irrelevant, David.
-Sarah: Okay, let's talk budget. We're burning $50k a month.
-Emily: That marketing campaign for 'Purr-fect Match' was expensive.
-David: I liked the billboard though. The giant whisker was cool.
-Mike: It cost $12,000 and drove exactly 4 signups.
-Sarah: Lesson learned. Organic growth only from now on.
-Emily: I've got a lead on an influencer. 'TabbyTammy' on TikTok. 
-Sarah: Reach out to her. Offer her 2% equity if she can get us 10k users.
-Mike: Equity? That's steep.
-Sarah: It's cheaper than cash right now.
-David: Can I have equity?
-Mike: Finish the slide deck first.
-Emily: Oh, before I forget—the office lease is up. Are we renewing?
-Sarah: No, we're going fully remote starting December. Save the $8k rent.
-Mike: Thank god. The commute is killing me.
-David: But free coffee...
-Sarah: Buy your own coffee, David.
-Emily: Back to Chimera. The ultrasonic sound feature... is it safe?
-Mike: Legal says yes, as long as it's under 20kHz. Ours is 18kHz.
-Sarah: Good. Put that in the legal disclaimer anyway.
-David: I heard a rumor that 'DogGo', our competitor, is launching a smart collar.
-Sarah: Where did you hear that?
-David: Reddit. r/Startups.
-Mike: We need to accelerate. If they launch first, Chimera looks like a copycat.
-Sarah: Pun intended?
-Mike: No.
-Emily: I'll prioritize the 'Bark Detection' module. It can disable the laser if a dog is near.
-Sarah: Brilliant. That's a USP. 
-David: Wait, I think I locked myself out of the AWS console again.
-Mike: DAVID. The password is 'BlueSky$99'. Capital B. Capital S.
-Sarah: Okay, wrap it up.
-1. Fix the toggle UI.
-2. Optimize API latency with Memcached.
-3. Emily, contact TabbyTammy.
-4. David, send the slides.
-5. Everyone prep for November 1st launch.
-Mike: I'll be in the server room. Don't disturb me unless the building is on fire.
-Emily: Or if TabbyTammy replies.
-Sarah: Meeting adjourned.
-[END TRANSCRIPT]
-`;
+1. PROJECT OVERVIEW
+Project Chimera is a next-generation automated cat toy utilizing AI to predict feline pounce patterns.
+Goal: Increase localized engagement by 400% in domestic shorthairs.
+Launch Date: November 1st (National Cat Day).
+
+2. TECHNICAL STACK
+- Backend: Go (Transitioned from Python for latency).
+- Frontend: React Native (Mobile App).
+- Hardware: ESP32 Controller with Laser Module (Class 2).
+
+3. KEY PERSONNEL
+- Sarah (CEO): Focused on Series B funding ($5M secured from CapitalOne Ventures).
+- Mike (CTO): Handling server migration and hardware latency (Target < 100ms).
+- Emily (Product): Managing UI/UX and Marketing (TabbyTammy influencer campaign).
+- David (Intern): General assistance (accidentally locked AWS keys, password reset to 'BlueSky$99').
+
+4. KNOWN ISSUES
+- Laser pointer latency is currently 500ms (Unacceptable).
+- "Bark Detection" module needs calibration; false positives with loud sneezes.
+- User testing revealed 'Dark Mode' toggle is hard to find.
+
+5. COMPETITOR INTELLIGENCE
+- "DogGo" is rumored to be launching a smart collar. Source: r/Startups.
+- Counter-strategy: Release "Bark Detection" as a USP (Unique Selling Point).
+
+6. BUDGET
+- Burn rate: $50k/month.
+- Marketing: $12k wasted on billboard; pivoting to influencer equity deals (2% offered to TabbyTammy).
+- Cost cutting: Office closing Dec 1st; switching to fully remote to save $8k/month.
+
+[END MEMO]`;
 
 function Playground() {
+  // State
   const [messagesStandard, setMessagesStandard] = useState<any[]>([
-    { role: "system", content: "Standard Memori System" },
-    { role: "assistant", content: "Ready (Standard Mode)" },
+    { role: "assistant", content: "Ready to query Standard Index." },
   ]);
   const [messagesClara, setMessagesClara] = useState<any[]>([
-    { role: "system", content: "CLaRa Enhanced System" },
-    { role: "assistant", content: "Ready (CLaRa Mode)" },
+    { role: "assistant", content: "Ready to query CLaRa Engine." },
   ]);
 
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [statsStandard, setStatsStandard] = useState<any>(null);
-  const [statsClara, setStatsClara] = useState<any>(null);
+  const [statsStandard, setStatsStandard] = useState<{
+    latencyMs: number;
+    originalSize: number;
+  } | null>(null);
+  const [statsClara, setStatsClara] = useState<{
+    latencyMs: number;
+    compressedSize: number;
+  } | null>(null);
 
-  const [contextFile, setContextFile] = useState<{
-    name: string;
-    content: string;
-  } | null>({
-    name: "project_chimera_meeting_notes.txt",
-    content: LONG_CONVERSATION,
-  });
-  const [isContextDialogOpen, setIsContextDialogOpen] = useState(false);
-  const [editableContext, setEditableContext] = useState("");
-  const [isSavingContext, setIsSavingContext] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // Context State
+  const [contextContent, setContextContent] = useState(SAMPLE_CONTEXT);
+  const [lastIngestedContent, setLastIngestedContent] = useState<string | null>(
+    null
+  );
+  const [isIngesting, setIsIngesting] = useState(false);
+  const [ingestionStatus, setIngestionStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const content = event.target?.result as string;
-      setContextFile({ name: file.name, content });
-      setEditableContext(content);
-    };
-    reader.readAsText(file);
-  };
+  const isDirty = contextContent !== lastIngestedContent;
 
-  const handleSaveContext = async () => {
-    if (!contextFile) return;
-    setIsSavingContext(true);
+  const handleIngest = async () => {
+    if (!contextContent.trim()) return;
+    setIsIngesting(true);
+    setIngestionStatus("idle");
     setStatsStandard(null);
     setStatsClara(null);
 
     try {
+      // Simulate/Real Ingest Call
       const [resStandard, resClara] = await Promise.all([
         fetch("/api/ingest", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: contextFile.name,
-            content: editableContext,
+            name: "playground_context.txt",
+            content: contextContent,
             isClaraEnabled: false,
             sessionId: "playground-standard",
           }),
@@ -169,8 +137,8 @@ function Playground() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: contextFile.name,
-            content: editableContext,
+            name: "playground_context.txt",
+            content: contextContent,
             isClaraEnabled: true,
             sessionId: "playground-clara",
           }),
@@ -183,30 +151,42 @@ function Playground() {
       if (dataStandard.success) setStatsStandard(dataStandard.stats);
       if (dataClara.success) setStatsClara(dataClara.stats);
 
-      setContextFile({ ...contextFile, content: editableContext });
-      setIsContextDialogOpen(false);
+      setLastIngestedContent(contextContent);
+      setIngestionStatus("success");
+
+      // Reset chats on new ingest
+      setMessagesStandard([
+        { role: "assistant", content: "Context updated. Ready for queries." },
+      ]);
+      setMessagesClara([
+        {
+          role: "assistant",
+          content: "Knowledge graph updated. Ready for reasoning.",
+        },
+      ]);
     } catch (e) {
       console.error("Ingestion failed", e);
+      setIngestionStatus("error");
     } finally {
-      setIsSavingContext(false);
+      setIsIngesting(false);
     }
   };
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
+    if (ingestionStatus !== "success" && !lastIngestedContent) {
+      // Prompt user to ingest first if they haven't
+      alert("Please ingest the context first!");
+      return;
+    }
 
     const userContent = input;
     setInput("");
     setIsLoading(true);
 
-    setMessagesStandard((prev) => [
-      ...prev,
-      { role: "user", content: userContent },
-    ]);
-    setMessagesClara((prev) => [
-      ...prev,
-      { role: "user", content: userContent },
-    ]);
+    const userMsg = { role: "user", content: userContent };
+    setMessagesStandard((prev) => [...prev, userMsg]);
+    setMessagesClara((prev) => [...prev, userMsg]);
 
     try {
       const [resStandard, resClara] = await Promise.all([
@@ -218,7 +198,7 @@ function Playground() {
             history: messagesStandard,
             isClaraEnabled: false,
             sessionId: "playground-standard",
-            contextFile,
+            contextFile: { name: "context", content: lastIngestedContent },
           }),
         }),
         fetch("/api/chat", {
@@ -229,7 +209,7 @@ function Playground() {
             history: messagesClara,
             isClaraEnabled: true,
             sessionId: "playground-clara",
-            contextFile,
+            contextFile: { name: "context", content: lastIngestedContent },
           }),
         }),
       ]);
@@ -262,378 +242,404 @@ function Playground() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-3.5rem)] overflow-hidden bg-background">
-      {/* Header Dashboard */}
-      <div className="h-24 shrink-0 border-b border-border/50 bg-muted/10 grid grid-cols-[1fr_250px] gap-0">
-        <div className="p-4 flex items-center gap-6">
-          <div className="space-y-1">
-            <h2 className="text-lg font-bold tracking-tight">
-              Comparison Playground
-            </h2>
-            <p className="text-xs text-muted-foreground">
-              Side-by-side analysis of Standard Memori vs CLaRa Engine
-            </p>
-          </div>
-
-          {statsStandard && statsClara && (
-            <div className="flex gap-4 ml-8">
-              <div className="flex flex-col gap-1 px-4 border-l border-border/50">
-                <span className="text-[10px] text-muted-foreground font-semibold uppercase">
-                  Latency (Ingest)
-                </span>
-                <div className="flex items-end gap-2 text-xs">
-                  <div className="text-muted-foreground">
-                    Std:{" "}
-                    <span className="font-mono text-foreground">
-                      {statsStandard.latencyMs}ms
-                    </span>
-                  </div>
-                  <div className="text-purple-500 font-bold">
-                    CLaRa:{" "}
-                    <span className="font-mono">{statsClara.latencyMs}ms</span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-1 px-4 border-l border-border/50">
-                <span className="text-[10px] text-muted-foreground font-semibold uppercase">
-                  Storage Size
-                </span>
-                <div className="flex items-end gap-2 text-xs">
-                  <div className="text-muted-foreground line-through opacity-70">
-                    {statsStandard.originalSize}b
-                  </div>
-                  <ArrowRightLeft className="w-3 h-3 text-muted-foreground" />
-                  <div className="text-green-500 font-bold font-mono">
-                    {statsClara.compressedSize}b (
-                    {(
-                      (statsClara.compressedSize / statsStandard.originalSize) *
-                      100
-                    ).toFixed(0)}
-                    %)
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+    <div className="flex w-full h-[calc(100vh-3.5rem)] overflow-hidden bg-background">
+      {/* LEFT PANEL: CONFIGURATION */}
+      <div className="w-[400px] flex flex-col border-r border-border bg-muted/10 shrink-0">
+        <div className="p-6 border-b border-border/50">
+          <h2 className="text-xl font-bold tracking-tight flex items-center gap-2">
+            <BrainCircuit className="w-6 h-6 text-primary" />
+            Playground
+          </h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Design your agent's memory and test recall capabilities.
+          </p>
         </div>
 
-        {/* File Controls */}
-        <div className="p-3 flex flex-col justify-center border-l border-border/50 bg-background/50">
-          {contextFile ? (
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 justify-between">
-                <div className="flex items-center gap-2 overflow-hidden">
-                  <FileText className="w-3.5 h-3.5 text-primary" />
-                  <span className="text-xs font-medium truncate max-w-[120px]">
-                    {contextFile.name}
-                  </span>
-                </div>
+        <div className="flex-1 flex flex-col p-6 gap-6 overflow-y-auto">
+          {/* Step 1: Context */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-semibold uppercase tracking-wider text-foreground">
+                1. Knowledge Base
+              </label>
+              <div className="flex gap-2">
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-5 w-5"
-                  onClick={() => {
-                    setEditableContext(contextFile.content);
-                    setIsContextDialogOpen(true);
-                  }}
+                  className="h-6 w-6"
+                  onClick={() => setContextContent(SAMPLE_CONTEXT)}
+                  title="Reset to Sample"
                 >
-                  <Eye className="w-3 h-3 text-muted-foreground" />
+                  <RefreshCw className="w-3.5 h-3.5" />
                 </Button>
               </div>
-              <Button
-                onClick={handleSaveContext}
-                disabled={isSavingContext}
-                size="sm"
-                className="w-full text-xs h-7"
-              >
-                {isSavingContext ? (
-                  <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                ) : (
-                  <Upload className="w-3 h-3 mr-1" />
-                )}
-                Run Ingest Pipeline
-              </Button>
             </div>
-          ) : (
+
+            <div className="relative group">
+              <Textarea
+                placeholder="Paste your context data here..."
+                className="min-h-[300px] font-mono text-xs resize-none bg-background focus:ring-primary/20"
+                value={contextContent}
+                onChange={(e) => setContextContent(e.target.value)}
+              />
+              <div className="absolute bottom-2 right-2 text-[10px] text-muted-foreground bg-background/80 px-2 py-1 rounded border">
+                {contextContent.length} chars
+              </div>
+            </div>
+
+            <Button
+              className={cn(
+                "w-full transition-all duration-300",
+                ingestionStatus === "success" && !isDirty
+                  ? "bg-green-600 hover:bg-green-700"
+                  : ""
+              )}
+              onClick={handleIngest}
+              disabled={isIngesting || !contextContent.trim()}
+            >
+              {isIngesting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Ingesting Knowledge...
+                </>
+              ) : ingestionStatus === "success" && !isDirty ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 mr-2" />
+                  Memory Synced
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  {lastIngestedContent ? "Update Memory" : "Ingest Memory"}
+                </>
+              )}
+            </Button>
+
+            {/* Ingest Stats Mini-Card */}
+            {statsStandard && statsClara && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="rounded-lg border border-border bg-background p-3 space-y-2 text-xs"
+              >
+                <div className="flex justify-between items-center text-muted-foreground">
+                  <span>Compression Ratio</span>
+                  <span className="font-mono text-green-500 font-bold">
+                    {(
+                      (statsClara.compressedSize / statsStandard.originalSize) *
+                      100
+                    ).toFixed(1)}
+                    %
+                  </span>
+                </div>
+                <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className="bg-green-500 h-full rounded-full"
+                    style={{
+                      width: `${(statsClara.compressedSize / statsStandard.originalSize) * 100}%`,
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-[10px] text-muted-foreground pt-1">
+                  <span>Standard: {statsStandard.originalSize}b</span>
+                  <span>CLaRa: {statsClara.compressedSize}b</span>
+                </div>
+              </motion.div>
+            )}
+          </div>
+
+          <div className="h-px bg-border/50" />
+
+          {/* Step 2: Settings (Visual Only for now) */}
+          <div className="space-y-3 opacity-60 hover:opacity-100 transition-opacity">
+            <label className="text-sm font-semibold uppercase tracking-wider text-foreground">
+              2. Query Settings
+            </label>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="p-2 border rounded bg-background flex flex-col gap-1">
+                <span className="text-muted-foreground">Model</span>
+                <span className="font-medium">Gemini 1.5 Flash</span>
+              </div>
+              <div className="p-2 border rounded bg-background flex flex-col gap-1">
+                <span className="text-muted-foreground">Temperature</span>
+                <span className="font-medium">0.7</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT PANEL: CHAT & COMPARISON */}
+      <div className="flex-1 flex flex-col min-w-0 bg-background">
+        {/* Header Stats Bar */}
+        <div className="h-14 border-b border-border flex items-center px-6 justify-between shrink-0">
+          <div className="flex items-center gap-4">
+            <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+              Live Comparison
+            </span>
+            <Badge
+              variant="secondary"
+              className="text-xs font-normal bg-muted/50 text-muted-foreground hover:bg-muted/50"
+            >
+              Dual-Stream Reference
+            </Badge>
+          </div>
+
+          <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="sm"
-              className="w-full h-full border-dashed"
-              onClick={() => fileInputRef.current?.click()}
+              onClick={() => {
+                setMessagesStandard([]);
+                setMessagesClara([]);
+                setStatsStandard(null);
+                setStatsClara(null);
+              }}
+              className="text-xs h-8"
             >
-              <Upload className="w-3.5 h-3.5 mr-2" />
-              Upload Context
+              <Trash2 className="w-3.5 h-3.5 mr-2 text-muted-foreground" />
+              Clear History
             </Button>
-          )}
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            accept=".txt"
-            onChange={handleFileUpload}
+          </div>
+        </div>
+
+        {/* Chat Area - Split View */}
+        <div className="flex-1 grid grid-cols-2 divide-x divide-border min-h-0">
+          {/* Standard Pane */}
+          <ChatPane
+            title="Standard Memori"
+            description="Vector Similarity Search"
+            icon={Database}
+            messages={messagesStandard}
+            isLoading={isLoading}
+            colorClass="text-blue-500"
+            bgClass="bg-blue-500/5"
+            borderClass="border-blue-200"
+          />
+
+          {/* CLaRa Pane */}
+          <ChatPane
+            title="CLaRa Engine"
+            description="Cognitive Latent Retrieval"
+            icon={Sparkles}
+            messages={messagesClara}
+            isLoading={isLoading}
+            isClara
+            colorClass="text-purple-500"
+            bgClass="bg-purple-500/5"
+            borderClass="border-purple-200"
           />
         </div>
-      </div>
 
-      {/* Split View Content - CRITICAL: min-h-0 for flex children with overflow */}
-      <div className="flex-1 grid grid-cols-2 min-h-0 divide-x divide-border/50">
-        <ChatPane
-          title="Standard Memori"
-          badge="Vector Only"
-          messages={messagesStandard}
-          isLoading={isLoading}
-          onClear={() => setMessagesStandard([])}
-          borderColor="border-border/50"
-        />
-
-        <ChatPane
-          title="CLaRa Engine"
-          badge="Groq + Reasoner"
-          messages={messagesClara}
-          isLoading={isLoading}
-          onClear={() => setMessagesClara([])}
-          borderColor="border-purple-500/20"
-          themeColor="purple"
-        />
-      </div>
-
-      {/* Unified Input Footer */}
-      <div className="p-4 border-t border-border/50 bg-background shrink-0">
-        <div className="relative max-w-4xl mx-auto">
-          <input
-            type="text"
-            placeholder="Type to query both engines simultaneously..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            disabled={isLoading}
-            className="w-full bg-muted/30 border border-border rounded-lg pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 shadow-sm"
-          />
-          <Button
-            className="absolute right-1.5 top-1.5 h-8 w-8"
-            size="icon"
-            disabled={isLoading}
-            onClick={handleSend}
-          >
-            <Send className="w-3.5 h-3.5" />
-          </Button>
+        {/* Input Area */}
+        <div className="p-6 border-t border-border bg-background/80 backdrop-blur shrink-0">
+          <div className="max-w-4xl mx-auto relative">
+            <div className="absolute -top-3 left-4 px-2 bg-background text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
+              Query Input
+            </div>
+            <div className="relative flex items-center">
+              <input
+                type="text"
+                placeholder={
+                  ingestionStatus === "success"
+                    ? "Ask a question about the context..."
+                    : "Ingest context first to start chatting..."
+                }
+                className="w-full bg-muted/30 border border-border rounded-xl pl-5 pr-14 py-4 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                disabled={isLoading || ingestionStatus !== "success"}
+              />
+              <div className="absolute right-2 flex items-center">
+                <Button
+                  size="icon"
+                  className={cn(
+                    "h-10 w-10 rounded-lg transition-all",
+                    isLoading ? "opacity-50" : "hover:scale-105"
+                  )}
+                  onClick={handleSend}
+                  disabled={
+                    isLoading || !input.trim() || ingestionStatus !== "success"
+                  }
+                >
+                  {isLoading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Send className="w-5 h-5" />
+                  )}
+                </Button>
+              </div>
+            </div>
+            <div className="mt-2 text-center">
+              <span className="text-[10px] text-muted-foreground">
+                Press Enter to send • Queries are processed in parallel
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Dialog for Context Edit */}
-      <Dialog open={isContextDialogOpen} onOpenChange={setIsContextDialogOpen}>
-        <DialogContent className="max-w-3xl h-[80vh] flex flex-col">
-          <DialogHeader>
-            <DialogTitle>Edit Context</DialogTitle>
-          </DialogHeader>
-          <textarea
-            className="flex-1 p-3 bg-muted/20 border rounded-md font-mono text-xs resize-none focus:outline-none"
-            value={editableContext}
-            onChange={(e) => setEditableContext(e.target.value)}
-          />
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setIsContextDialogOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleSaveContext}>Save & Re-Ingest</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
 
-// Completely rewritten ChatPane with guaranteed scrolling
 function ChatPane({
   title,
-  badge,
+  description,
+  icon: Icon,
   messages,
   isLoading,
-  onClear,
-  borderColor,
-  themeColor = "primary",
+  isClara = false,
+  colorClass,
+  bgClass,
+  borderClass,
 }: any) {
-  const isPurple = themeColor === "purple";
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom whenever messages change
   useEffect(() => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop =
-        scrollContainerRef.current.scrollHeight;
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
 
   return (
-    <div className="flex flex-col h-full min-h-0 bg-muted/5">
-      {/* Fixed Header */}
-      <div
-        className={`shrink-0 h-12 flex items-center justify-between px-4 border-b ${borderColor} bg-background/60 backdrop-blur-sm`}
-      >
-        <div className="flex items-center gap-2">
-          {isPurple ? (
-            <Sparkles className="w-4 h-4 text-purple-500" />
-          ) : (
-            <Database className="w-4 h-4 text-muted-foreground" />
-          )}
-          <span
-            className={`text-xs font-bold ${isPurple ? "text-purple-600" : "text-foreground"}`}
-          >
-            {title}
-          </span>
-          <Badge
-            variant="outline"
-            className={`text-[9px] h-4 px-1.5 ${isPurple ? "border-purple-200 text-purple-500 bg-purple-50" : "text-muted-foreground"}`}
-          >
-            {badge}
-          </Badge>
+    <div
+      className={cn(
+        "flex flex-col h-full min-h-0 relative",
+        isClara ? "bg-purple-50/10" : "bg-blue-50/10"
+      )}
+    >
+      {/* Pane Header */}
+      <div className="p-4 border-b border-border/50 flex items-center gap-3 bg-background/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className={cn("p-2 rounded-lg", bgClass)}>
+          <Icon className={cn("w-4 h-4", colorClass)} />
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-6 w-6 text-muted-foreground hover:text-destructive"
-          onClick={onClear}
-        >
-          <Trash2 className="w-3 h-3" />
-        </Button>
+        <div>
+          <h3 className="text-sm font-bold text-foreground">{title}</h3>
+          <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
+            {description}
+          </p>
+        </div>
       </div>
 
-      {/* Scrollable Messages Container - THIS IS THE KEY */}
+      {/* Messages */}
       <div
-        ref={scrollContainerRef}
-        className="flex-1 overflow-y-auto p-4 space-y-4"
-        style={{ minHeight: 0 }} // Critical for flexbox overflow
+        ref={scrollRef}
+        className="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth"
       >
-        {messages.map((msg: any, i: number) => (
-          <motion.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            key={i}
-            className={`flex flex-col gap-1 ${msg.role === "user" ? "items-end" : "items-start"}`}
-          >
-            <div
-              className={`rounded-lg px-3 py-2 max-w-[85%] text-sm leading-relaxed border ${
+        <AnimatePresence initial={false}>
+          {messages.map((msg: any, i: number) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.2 }}
+              className={cn(
+                "flex flex-col gap-1 max-w-[90%]",
                 msg.role === "user"
-                  ? "bg-primary text-primary-foreground border-primary/20"
-                  : `bg-background border-border shadow-sm ${isPurple && msg.role === "assistant" ? "border-purple-200 bg-purple-50/50" : ""}`
-              }`}
+                  ? "ml-auto items-end"
+                  : "mr-auto items-start"
+              )}
             >
-              {msg.content}
-            </div>
+              <div
+                className={cn(
+                  "px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm",
+                  msg.role === "user"
+                    ? "bg-primary text-primary-foreground rounded-br-none"
+                    : "bg-background border border-border rounded-bl-none"
+                )}
+              >
+                {msg.content}
+              </div>
 
-            {msg.role === "assistant" && msg.analysis && (
-              <AnalysisButton analysis={msg.analysis} isPurple={isPurple} />
-            )}
-          </motion.div>
-        ))}
+              {/* Analysis Footers for Assistant */}
+              {msg.role === "assistant" && msg.analysis && (
+                <div className="flex items-center gap-2 mt-1 px-1">
+                  <Badge
+                    variant="outline"
+                    className={cn(
+                      "text-[10px] h-5 px-2 font-mono gap-1",
+                      borderClass,
+                      bgClass
+                    )}
+                  >
+                    <Cpu className="w-3 h-3 opacity-70" />
+                    {msg.analysis.latencyMs}ms
+                  </Badge>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button className="text-[10px] font-medium text-muted-foreground hover:text-foreground underline decoration-dotted underline-offset-2 transition-colors">
+                        View Logic
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80 p-0" align="start">
+                      <div className="p-3 border-b border-border bg-muted/20">
+                        <h4 className="font-semibold text-xs flex items-center gap-2">
+                          <Activity className="w-3.5 h-3.5" />
+                          Execution Analysis
+                        </h4>
+                      </div>
+                      <div className="p-3 space-y-3">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="bg-muted/10 p-2 rounded border border-border/50">
+                            <div className="text-[10px] text-muted-foreground uppercase">
+                              Tokens
+                            </div>
+                            <div className="text-sm font-mono font-bold">
+                              {msg.analysis.tokenUsage}
+                            </div>
+                          </div>
+                          <div className="bg-muted/10 p-2 rounded border border-border/50">
+                            <div className="text-[10px] text-muted-foreground uppercase">
+                              Chunks
+                            </div>
+                            <div className="text-sm font-mono font-bold">
+                              {msg.analysis.contextChunksUsed}
+                            </div>
+                          </div>
+                        </div>
+
+                        {msg.analysis.reasoningTrace && (
+                          <div className="space-y-1">
+                            <div className="text-[10px] font-bold text-muted-foreground uppercase">
+                              Reasoning Trace
+                            </div>
+                            <div className="max-h-40 overflow-y-auto bg-muted/30 p-2 rounded text-[10px] font-mono space-y-1">
+                              {msg.analysis.reasoningTrace.map(
+                                (line: string, idx: number) => (
+                                  <div key={idx} className="flex gap-2">
+                                    <span className="text-muted-foreground/50 select-none">
+                                      {idx + 1}
+                                    </span>
+                                    <span>{line}</span>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </AnimatePresence>
 
         {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-muted/30 rounded-lg px-4 py-2 flex items-center gap-2">
-              <Loader2
-                className={`w-3.5 h-3.5 animate-spin ${isPurple ? "text-purple-500" : "text-primary"}`}
-              />
-              <span className="text-xs text-muted-foreground">
-                Processing...
-              </span>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex items-center gap-3 text-muted-foreground p-2"
+          >
+            <Loader2 className={cn("w-4 h-4 animate-spin", colorClass)} />
+            <span className="text-xs font-medium animate-pulse">
+              Thinking...
+            </span>
+          </motion.div>
         )}
       </div>
     </div>
-  );
-}
-
-function AnalysisButton({
-  analysis,
-  isPurple,
-}: {
-  analysis: any;
-  isPurple: boolean;
-}) {
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <button
-          className={`flex items-center gap-1.5 text-[9px] font-medium mt-0.5 px-2 py-0.5 rounded-full transition-colors ${
-            isPurple
-              ? "text-purple-500 hover:bg-purple-100/50"
-              : "text-muted-foreground hover:bg-muted"
-          }`}
-        >
-          <Activity className="w-2.5 h-2.5" />
-          {analysis.latencyMs}ms / {analysis.tokenUsage}tok
-        </button>
-      </PopoverTrigger>
-      <PopoverContent align="start" className="w-72 p-0 shadow-lg">
-        <div
-          className={`p-2 border-b flex items-center gap-2 ${isPurple ? "bg-purple-50/50 border-purple-100" : "bg-muted/30"}`}
-        >
-          <BarChart3
-            className={`w-3.5 h-3.5 ${isPurple ? "text-purple-500" : ""}`}
-          />
-          <span className="text-xs font-bold">Execution Analysis</span>
-        </div>
-        <div className="p-3 space-y-3">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-0.5">
-              <div className="text-[9px] text-muted-foreground uppercase font-bold">
-                Latency
-              </div>
-              <div
-                className={`text-sm font-mono font-medium ${isPurple ? "text-purple-600" : ""}`}
-              >
-                {analysis.latencyMs}ms
-              </div>
-            </div>
-            <div className="space-y-0.5">
-              <div className="text-[9px] text-muted-foreground uppercase font-bold">
-                Chunks
-              </div>
-              <div className="text-sm font-mono font-medium">
-                {analysis.contextChunksUsed}
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <div className="flex justify-between text-[9px] text-muted-foreground">
-              <span>Token Usage</span>
-              <span>{analysis.tokenUsage}</span>
-            </div>
-            <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
-              <div
-                className={`h-full rounded-full ${isPurple ? "bg-purple-500" : "bg-primary"}`}
-                style={{
-                  width: `${Math.min((analysis.tokenUsage / 1000) * 100, 100)}%`,
-                }}
-              />
-            </div>
-          </div>
-
-          {analysis.reasoningTrace && (
-            <div className="space-y-1 pt-2 border-t border-border/50">
-              <div className="flex items-center gap-1">
-                <Zap className="w-3 h-3 text-amber-500" />
-                <span className="text-[9px] font-bold text-muted-foreground uppercase">
-                  Reasoning Trace
-                </span>
-              </div>
-              <div className="bg-muted/30 rounded p-2 text-[9px] font-mono leading-tight space-y-1 max-h-32 overflow-y-auto">
-                {analysis.reasoningTrace.map((t: string, i: number) => (
-                  <div key={i} className="flex gap-1.5">
-                    <span className="text-muted-foreground/50">{i + 1}.</span>
-                    <span className="text-muted-foreground">{t}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </PopoverContent>
-    </Popover>
   );
 }
