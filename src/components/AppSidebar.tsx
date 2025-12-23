@@ -115,7 +115,7 @@ export function MobileSidebar() {
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-50 md:hidden"
+          className="fixed inset-0 bg-black/80 z-50 md:hidden backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -123,12 +123,12 @@ export function MobileSidebar() {
       {/* Drawer */}
       <div
         className={cn(
-          "fixed left-0 top-0 h-full w-80 bg-background z-50 transform transition-transform duration-300 ease-in-out md:hidden",
+          "fixed left-0 top-0 h-screen w-80 bg-sidebar border-r border-border shadow-2xl z-60 transform will-change-transform transition-transform duration-300 ease-in-out md:hidden flex flex-col",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border">
+        <div className="flex items-center justify-between p-4 border-b border-border bg-sidebar shrink-0">
           <span className="font-bold text-sm">Menu</span>
           <button
             onClick={() => setIsOpen(false)}

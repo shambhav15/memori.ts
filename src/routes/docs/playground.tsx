@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 // import { useChat, fetchServerSentEvents } from "@tanstack/ai-react";
 import {
   Send,
@@ -13,6 +13,7 @@ import {
   CheckCircle2,
   Cpu,
   Save,
+  Settings2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -64,7 +65,13 @@ function Playground() {
 
   const isDirty = contextContent !== lastIngestedContent;
 
-  // Removed useChat hooks and sync effects - state is now managed manually via handleSend
+  /* REMOVED useChat hooks to support custom JSON metadata response */
+
+  // Mobile Responsiveness States
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
+  const [mobileChatTab, setMobileChatTab] = useState<"standard" | "clara">(
+    "standard"
+  );
 
   const handleIngest = async () => {
     if (!contextContent.trim()) return;
@@ -105,6 +112,7 @@ function Playground() {
 
       setLastIngestedContent(contextContent);
       setIngestionStatus("success");
+      setIsConfigOpen(false); // Auto-close config on mobile after ingest
 
       // Reset chats
       setMessagesStandard([
@@ -133,6 +141,7 @@ function Playground() {
     if (!input.trim() || isLoading) return;
     if (ingestionStatus !== "success" && !lastIngestedContent) {
       alert("Please ingest the context first!");
+      setIsConfigOpen(true); // Open config for user
       return;
     }
 
@@ -207,17 +216,33 @@ function Playground() {
   };
 
   return (
-    <div className="flex w-full h-[calc(100vh-3.5rem)] overflow-hidden bg-background">
+    <div className="flex flex-col md:flex-row w-full h-dvh md:h-[calc(100vh-3.5rem)] overflow-hidden bg-background relative">
       {/* LEFT PANEL: CONFIGURATION */}
-      <div className="w-[400px] flex flex-col border-r border-border bg-muted/10 shrink-0">
-        <div className="p-6 border-b border-border/50">
-          <h2 className="text-xl font-bold tracking-tight flex items-center gap-2">
-            <BrainCircuit className="w-6 h-6 text-primary" />
-            Playground
-          </h2>
-          <p className="text-sm text-muted-foreground mt-1">
-            Design your agent's memory and test recall capabilities.
-          </p>
+      <div
+        className={cn(
+          "w-full md:w-[400px] flex flex-col border-r border-border shrink-0 transition-transform duration-300 ease-in-out md:translate-x-0 md:bg-muted/10 bg-background",
+          isConfigOpen ? "absolute inset-0 z-50" : "hidden md:flex"
+        )}
+      >
+        <div className="p-6 border-b border-border/50 flex justify-between items-center">
+          <div>
+            <h2 className="text-xl font-bold tracking-tight flex items-center gap-2">
+              <BrainCircuit className="w-6 h-6 text-primary" />
+              Playground
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Design your agent's memory.
+            </p>
+          </div>
+          {/* Mobile Close Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsConfigOpen(false)}
+            className="md:hidden"
+          >
+            <CheckCircle2 className="w-6 h-6" />
+          </Button>
         </div>
 
         <div className="flex-1 flex flex-col p-6 gap-6 overflow-y-auto">
@@ -273,17 +298,17 @@ function Playground() {
                   {isIngesting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Ingesting Knowledge...
+                      Ingesting...
                     </>
                   ) : ingestionStatus === "success" && !isDirty ? (
                     <>
                       <CheckCircle2 className="w-4 h-4 mr-2" />
-                      Memory Synced
+                      Synced
                     </>
                   ) : (
                     <>
                       <Save className="w-4 h-4 mr-2" />
-                      {lastIngestedContent ? "Update Memory" : "Ingest Memory"}
+                      {lastIngestedContent ? "Update" : "Ingest"}
                     </>
                   )}
                 </Button>
@@ -345,64 +370,117 @@ function Playground() {
       </div>
 
       {/* RIGHT PANEL: CHAT & COMPARISON */}
-      <div className="flex-1 flex flex-col min-w-0 bg-background">
+      <div className="flex-1 flex flex-col min-w-0 bg-background relative z-0">
         {/* Header Stats Bar */}
-        <div className="h-14 border-b border-border flex items-center px-6 justify-between shrink-0">
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+        <div className="h-14 border-b border-border flex items-center px-4 md:px-6 justify-between shrink-0 gap-2">
+          {/* Mobile Config Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsConfigOpen(true)}
+            className="md:hidden shrink-0"
+          >
+            <Settings2 className="w-5 h-5" />
+          </Button>
+
+          <div className="flex items-center gap-4 flex-1 overflow-hidden">
+            <span className="hidden md:block text-sm font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap">
               Live Comparison
             </span>
+
+            {/* Mobile Tab Switcher */}
+            <div className="flex md:hidden bg-muted/50 rounded-lg p-1 items-center gap-1 mx-auto">
+              <Button
+                variant={mobileChatTab === "standard" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setMobileChatTab("standard")}
+                className={cn(
+                  "h-7 text-xs",
+                  mobileChatTab === "standard" &&
+                    "bg-background text-foreground shadow-sm"
+                )}
+              >
+                Standard
+              </Button>
+              <Button
+                variant={mobileChatTab === "clara" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setMobileChatTab("clara")}
+                className={cn(
+                  "h-7 text-xs",
+                  mobileChatTab === "clara" &&
+                    "bg-background text-foreground shadow-sm"
+                )}
+              >
+                CLaRa
+              </Button>
+            </div>
+
             <Badge
               variant="secondary"
-              className="text-xs font-normal bg-muted/50 text-muted-foreground hover:bg-muted/50"
+              className="text-xs font-normal bg-muted/50 text-muted-foreground hover:bg-muted/50 hidden md:inline-flex"
             >
               Dual-Stream Reference
             </Badge>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="outline"
               size="sm"
               onClick={clearHistory}
-              className="text-xs h-8"
+              className="text-xs h-8 px-2 md:px-3"
             >
-              <Trash2 className="w-3.5 h-3.5 mr-2 text-muted-foreground" />
-              Clear History
+              <Trash2 className="w-3.5 h-3.5 md:mr-2 text-muted-foreground" />
+              <span className="hidden md:inline">Clear</span>
             </Button>
           </div>
         </div>
 
         {/* Chat Area - Split View */}
-        <div className="flex-1 grid grid-cols-2 divide-x divide-border min-h-0">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border min-h-0 bg-background">
           {/* Standard Pane */}
-          <ChatPane
-            title="Standard Memori"
-            description="Vector Similarity Search"
-            icon={Database}
-            messages={messagesStandard}
-            isLoading={isLoading}
-            colorClass="text-blue-500"
-            bgClass="bg-blue-500/5"
-            borderClass="border-blue-200"
-          />
+          <div
+            className={cn(
+              "flex-col h-full min-h-0 relative",
+              mobileChatTab === "clara" ? "hidden md:flex" : "flex"
+            )}
+          >
+            <ChatPane
+              title="Standard Memori"
+              description="Vector Similarity Search"
+              icon={Database}
+              messages={messagesStandard}
+              isLoading={isLoading}
+              colorClass="text-blue-500"
+              bgClass="bg-blue-500/5"
+              borderClass="border-blue-200"
+            />
+          </div>
 
           {/* CLaRa Pane */}
-          <ChatPane
-            title="CLaRa Engine"
-            description="Cognitive Latent Retrieval"
-            icon={Sparkles}
-            messages={messagesClara}
-            isLoading={isLoading}
-            isClara
-            colorClass="text-purple-500"
-            bgClass="bg-purple-500/5"
-            borderClass="border-purple-200"
-          />
+          <div
+            className={cn(
+              "flex-col h-full min-h-0 relative",
+              mobileChatTab === "standard" ? "hidden md:flex" : "flex"
+            )}
+          >
+            <ChatPane
+              title="CLaRa Engine"
+              description="Cognitive Latent Retrieval"
+              icon={Sparkles}
+              messages={messagesClara}
+              isLoading={isLoading}
+              isClara
+              colorClass="text-purple-500"
+              bgClass="bg-purple-500/5"
+              borderClass="border-purple-200"
+            />
+          </div>
         </div>
 
         {/* Input Area */}
-        <div className="p-6 border-t border-border bg-background/80 backdrop-blur shrink-0">
+        <div className="p-3 md:p-6 border-t border-border bg-background/80 backdrop-blur shrink-0 safe-pb">
           <div className="max-w-4xl mx-auto relative">
             <div className="absolute -top-3 left-4 px-2 bg-background text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
               Query Input
@@ -412,10 +490,10 @@ function Playground() {
                 type="text"
                 placeholder={
                   ingestionStatus === "success"
-                    ? "Ask a question about the context..."
-                    : "Ingest context first to start chatting..."
+                    ? "Ask a question..."
+                    : "Ingest first..."
                 }
-                className="w-full bg-muted/30 border border-border rounded-xl pl-5 pr-14 py-4 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all"
+                className="w-full bg-muted/30 border border-border rounded-xl pl-4 md:pl-5 pr-12 md:pr-14 py-3 md:py-4 text-sm md:text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
@@ -425,7 +503,7 @@ function Playground() {
                 <Button
                   size="icon"
                   className={cn(
-                    "h-10 w-10 rounded-lg transition-all",
+                    "h-8 w-8 md:h-10 md:w-10 rounded-lg transition-all",
                     isLoading ? "opacity-50" : "hover:scale-105"
                   )}
                   onClick={handleSend}
@@ -434,17 +512,12 @@ function Playground() {
                   }
                 >
                   {isLoading ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" />
                   ) : (
-                    <Send className="w-5 h-5" />
+                    <Send className="w-4 h-4 md:w-5 md:h-5" />
                   )}
                 </Button>
               </div>
-            </div>
-            <div className="mt-2 text-center">
-              <span className="text-[10px] text-muted-foreground">
-                Press Enter to send • Queries are processed in parallel
-              </span>
             </div>
           </div>
         </div>
